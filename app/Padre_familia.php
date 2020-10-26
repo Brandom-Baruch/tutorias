@@ -9,34 +9,20 @@ class Padre_familia extends Authenticatable
 {
     use Notifiable;
 
+    protected $primaryKey = "id";
+
     protected $guard = 'padre';
-    /**
-     * The attributes that are mass assignable.
-     *
-     * @var array
-     */
-    protected $fillable = [
-        'name', 'email', 'password',
-    ];
-
-    /**
-     * The attributes that should be hidden for arrays.
-     *
-     * @var array
-     */
-    protected $hidden = [
-        'password', 'remember_token',
-    ];
-
-    public function b_domicilio()
-    {
-        return $this->belongsTo(B_Domicilio::class);
-    }
-    
+ 
+    protected $fillable = ['name', 'email', 'password',];    
 
     public function setCurpAttribute($value)
     {
         $this->attributes['curp'] = strtoupper($value);
+    }
+
+    public function alumnos()
+    {
+        return $this->belongsToMany(Alumno::class, 'parentezcos','padre_id','alumno_id')->withPivot('parentezco')->withTimestamps();
     }
 
 }

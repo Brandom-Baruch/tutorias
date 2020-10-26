@@ -52,7 +52,7 @@ return [
         'docente' => [
             'driver' => 'session',
             'provider' => 'docentes',
-        ],
+        ],        
         'padre' => [
             'driver' => 'session',
             'provider' => 'padres',
@@ -88,7 +88,7 @@ return [
         'docentes' => [
             'driver' => 'eloquent',
             'model' => App\Docente::class,
-        ],
+        ],       
         'padres' => [
             'driver' => 'eloquent',
             'model' => App\Padre_familia::class,
@@ -130,7 +130,7 @@ return [
             'provider' => 'docentes',
             'table' => 'password_resets',
             'expire' => 10,
-        ],
+        ],       
         'padres' => [
             'provider' => 'padres',
             'table' => 'password_resets',

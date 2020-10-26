@@ -24,20 +24,25 @@ class AlumnoLoginController extends Controller
     {
     	//validation
     	$rules = [
-    		'email' => 'required|email',
+    		$this->username() => 'required|string',
     		'password' => 'required|min:6',
-    	];
+    	];       
 
     	$this->validate($request,$rules);
 
     	//dd($request->all());
 
-    	if(Auth::guard('alumno')->attempt(['email' => $request->email, 'password' => $request->password], $request->remember))
+    	if(Auth::guard('alumno')->attempt([$this->username() => $request->nia, 'password' => $request->password]))
     	{
     		return redirect('/alumno');
     	}else{
-    		return back()->withInput($request->only('email','remember'));
+    		return back()->withInput($request->only($this->username()));
     	}
 
+    }
+
+    public function username()
+    {
+        return 'nia';
     }
 }

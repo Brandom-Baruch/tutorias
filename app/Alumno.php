@@ -12,23 +12,9 @@ class Alumno extends Authenticatable
     protected $primaryKey = 'nia'; //Al utilizar find, por defecto laravel colocara id 
     
     protected $guard = 'alumno';
-    /**
-     * The attributes that are mass assignable.
-     *
-     * @var array
-     */
-    protected $fillable = [
-        'nia','name', 'email', 'password',
-    ];
-
-    /**
-     * The attributes that should be hidden for arrays.
-     *
-     * @var array
-     */
-    protected $hidden = [
-        'password', 'remember_token',
-    ];
+    
+    protected $fillable = ['nia','name', 'email', 'password',];
+  
 
     //Relacion entre grupo y alumno
     //Varios alumnos pueden tener un grupo
@@ -49,10 +35,9 @@ class Alumno extends Authenticatable
             }
     }
 
-    public function b_domicilio()
+    public function padres()
     {
-        return $this->belongsTo(B_Domicilio::class);
+        return $this->belongsToMany(Padre_familia::class, 'parentezcos','padre_id','alumno_id')->withPivot('parentezco')->withTimestamps();
     }
-
 
 }

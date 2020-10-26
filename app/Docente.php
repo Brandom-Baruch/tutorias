@@ -9,33 +9,55 @@ use Illuminate\Foundation\Auth\User as Authenticatable;
 
 class Docente extends Authenticatable
 {
-    use Notifiable;
-
+ 
     protected $guard = 'docente';
-    
-    /**
-     * The attributes that are mass assignable.
-     *
-     * @var array
-     */
-    protected $fillable = [
-        'name', 'email', 'password',
-    ];
 
-    /**
-     * The attributes that should be hidden for arrays.
-     *
-     * @var array
-     */
-    protected $hidden = [
-        'password', 'remember_token',
-    ];
+    protected $fillable = ['name', 'email', 'password'];
 
-    public function b_domicilio()
+    public function puestos()
     {
-        return $this->belongsTo(B_Domicilio::class);
+        return $this->belongsToMany(Puesto::class,'puesto_asignados')->withTimestamps();
     }
 
-    
-    
+    public function autorizarPuestos($puestos)
+    {
+        if($this->hasAnyPuesto($puestos))
+        {
+            return true;
+        }
+        abort(401, 'No autorizado');        
+    }
+
+    public function hasAnyPuesto($puestos)
+    {
+        if (is_array($puestos)) {// Si el docente tiene varios puestos, creamos un arreglo
+            //Recorremos los puestos que tiene le docente                
+            foreach ($puestos as $puesto) {
+                if ($this->tiene_Puesto($puestos)) {
+                return true;
+                }
+            }
+
+        }else{ //Si solamente tiene un puesto
+            if ($this->tiene_Puesto($puestos)) {
+                return true;
+            }
+        }
+        return false;
+    }
+
+    public function tiene_Puesto($puesto)
+    {
+        if ($this->puestos()->where('puesto',$puesto)->first()) {
+            return true;
+        }
+            return false;
+    }
+
+
+
+    public function materias()
+    {
+        return $this->belongsToMany(Materia::class,'imparte')->withTimestamps();
+    }
 }   

@@ -16,6 +16,6 @@ class PadreController extends Controller
 
      public function index()
     {
-    	return view('padre');
+    	return view('padre_familia.padre_home');
     }
 }

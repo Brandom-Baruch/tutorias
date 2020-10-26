@@ -48,6 +48,8 @@
                   id="password" name="password">
                 </div> 
 
+                
+
                 @if ($errors->has('password'))
                     <span class="help-block" style="color: red;">
                         <strong>{{ $errors->first('password') }}</strong>

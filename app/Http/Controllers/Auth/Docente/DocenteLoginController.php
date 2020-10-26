@@ -5,11 +5,12 @@ namespace App\Http\Controllers\Auth\Docente;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use Auth;
+use App\Docente;
 
 class DocenteLoginController extends Controller
 {
     
-
+    //use RedirectsUsers, ThrottlesLogins;
 
     public function __construct()
 	{
@@ -40,23 +41,16 @@ class DocenteLoginController extends Controller
 
     	//dd($request->all());
 
-    	if(Auth::guard('docente')->attempt(['email' => $request->email, 'password' => $request->password], $request->remember))
-    	{
-    		return redirect('/director/index');
-    	}else{
+    	if(Auth::guard('docente')->attempt(['email' => $request->email, 'password' => $request->password]))
+    	{            
+    		return redirect('/docente');
+    	}else{            
             $mensaje = 'Correo o contraseña equivocadas. Intentelo de nuevo';
     		return back()
-            ->withInput($request->only('email','remember'))
+            ->withInput($request->only('email'))
             ->with(compact('mensaje')); //Solo muestra el correo electronico
-    	}
+        }
 
-    }
+	}
 
-  /*  public function logout()
-    {
-        Auth::logout();
-
-        return redirect('/');
-    }
-   */
 }

@@ -13,4 +13,9 @@ class Grupo extends Model
 	{	
 		return $this->hasMany(Alumno::class);
 	}
+
+	public function asignadas()
+	{
+		return $this->belongsTo('App\Asignada');
+	}
 }

@@ -30,11 +30,11 @@ class PadreLoginController extends Controller
 
     	//dd($request->all());
 
-    	if(Auth::guard('padre')->attempt(['email' => $request->email, 'password' => $request->password], $request->remember))
+    	if(Auth::guard('padre')->attempt(['email' => $request->email, 'password' => $request->password]))
     	{
     		return redirect('/padre');
     	}else{
-    		return back()->withInput($request->only('email','remember'));
+    		return back()->withInput($request->only('email'));
     	}
 
     }

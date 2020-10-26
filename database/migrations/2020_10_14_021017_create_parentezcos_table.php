@@ -17,8 +17,8 @@ class CreateParentezcosTable extends Migration
             $table->increments('id');
             $table->string('parentezco');
             //FK
-            $table->integer('nia_id')->unsigned();
-            $table->foreign('nia_id')->references('id')->on('alumnos');
+            $table->integer('alumno_id')->unsigned();
+            $table->foreign('alumno_id')->references('nia')->on('alumnos');
 
             //FK
             $table->integer('padre_id')->unsigned();

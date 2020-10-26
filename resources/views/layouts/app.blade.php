@@ -14,9 +14,8 @@
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/latest/css/font-awesome.min.css">
   <!-- CSS Files -->
   
-  <link href="{{asset('css/material-kit.css?v=2.0.7')}}" rel="stylesheet" />   
-  @yield('estilo')
-  <!--<link href="{{ asset('css/app.css') }}" rel="stylesheet">  -->
+  <link href="{{asset('css/material-kit.css')}}" rel="stylesheet" />    
+  @yield('estilo')  
 </head>
 
 <body class="@yield('body-class')">
@@ -34,18 +33,33 @@
           </div>
           <div class="collapse navbar-collapse">
             <ul class="navbar-nav ml-auto">              
-              @yield('contenido')                          
+              @yield('contenido')   
+
               @guest
-                    <li class="nav-item"><a class="nav-link" href="/docente/login">Inciar</a></li>
+                   <li class="dropdown nav-item">
+                        <a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false" aria-haspopup="true" v-pre>
+                            Iniciar Sesión
+                        </a>
+                        
+                        <ul class="dropdown-menu">
+                            <li class="nav-item">
+                                @yield('opciones_director')
+                                <a class="dropdown-item" href="/docente/login">Inciar Docente</a>
+                                <a class="dropdown-item" href="/alumno/login">Inciar Alumno</a>
+                                <a class="dropdown-item" href="/padre/login">Inciar PadreF</a>                                  
+                            </li>
+                        </ul>
+                    </li>
                     <!--<li class="nav-item"><a class="nav-link" href="/docente/register">Registrar</a></li>-->
                 @else
                     <li class="dropdown nav-item">
-                        <a href="#" class="dropdown-toggle nav-link" data-toggle="dropdown" role="button" aria-expanded="false" aria-haspopup="true" v-pre>
+                        <a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false" aria-haspopup="true" v-pre>
                             {{ Auth::user()->name }} <span class="caret"></span>
                         </a>
                         
                         <ul class="dropdown-menu">
-                            <li>
+                            <li class="nav-item">
+                                @yield('opciones_director')
                                 <a href="{{ route('all.logout') }}"
                                     onclick="event.preventDefault();
                                              document.getElementById('logout-form').submit();">

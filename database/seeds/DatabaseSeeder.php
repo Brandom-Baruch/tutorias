@@ -16,6 +16,9 @@ class DatabaseSeeder extends Seeder
         $this->call(PadreFamiliaTableSeeder::class);
         $this->call(AlumnoTableSeeder::class);
         $this->call(MateriasTableSeeder::class);
+        $this->call(ImparteTableSeeder::class);     
+        $this->call(PuestoAsignadoTableSeeder::class); 
+        $this->call(ParentezcoTableSeed::class);             
         //$this->call(GrupoTableSeeder::class);
         //$this->call(PadreFamiliaTableSeeder::class);        
     }
