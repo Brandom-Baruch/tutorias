@@ -86,7 +86,7 @@
                       <td class="td-actions text-right">
                         <form method="post" action="{{url('/director/alumno/'.$alumno->nia.'/delete')}}">
                             {{csrf_field()}}                          
-                          <a href="" rel="tooltip" title="Ver Alumno" 
+                          <a href="{{url('director/alumno/'.$alumno->nia.'/show')}}" rel="tooltip" title="Ver Alumno" 
                           class="btn btn-info btn-fab btn-fab-mini btn-rect btn-sm">
                               <i class="fa fa-user"></i>
                           </a>

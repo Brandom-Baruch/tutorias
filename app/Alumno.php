@@ -37,7 +37,12 @@ class Alumno extends Authenticatable
 
     public function padres()
     {
-        return $this->belongsToMany(Padre_familia::class, 'parentezcos','padre_id','alumno_id')->withPivot('parentezco')->withTimestamps();
+        return $this->belongsToMany(Padre_familia::class, 'parentezcos','alumno_id','padre_id')->withPivot('parentezco')->withTimestamps();
+    }
+
+    public function domicilios()
+    {
+        return $this->belongsToMany(Domicilio::class,'_b__domicilio','alumno_id')->withTimestamps();
     }
 
 }

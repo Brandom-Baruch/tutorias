@@ -26,17 +26,16 @@
         </div>
       </div>
       <div class="description text-center">           
-        <h3 class="title">Asignar parentezco(s) entre alumno y el padre de familia <b class="text-primary">{{$padre->name}}</b></h3>       <form method="post" action="{{url('director/padre_familia/'.$padre->id.'/alumnos')}}">
+        <h3 class="title">Asignar parentezco(s) entre el padre de familia y el alumno <b class="text-primary">{{$alumno->name}}</b></h3>    <form method="post" action="{{url('director/alumno/'.$alumno->nia.'/familiares')}}">
           {{ csrf_field() }}
             <div class="row">
-
               <div class="col-md-6">
                 <div class="form-group">
-                  <label style="color: black;">Selecciona un alumno</label>
-                  <select class="form-control"  name="alumno_id"  style="color: black;">
-                    @foreach($alumnos as $alumno)
-                      <option value="{{$alumno->nia}}" @if($alumno->nia == old('alumno_id', $alumno->nia)) selected @endif>
-                        {{$alumno->name}} {{$alumno->apellidoP}} {{$alumno->apellidoM}}
+                  <label style="color: black;">Selecciona un familiar</label>
+                  <select class="form-control"  name="padre_id"  style="color: black;">
+                    @foreach($padres as $padre)
+                      <option value="{{$padre->id}}" @if($padre->id == old('padre_id', $padre->id)) selected @endif>
+                        {{$padre->name}} {{$padre->apellidoP}} {{$padre->apellidoM}}
                       </option>       
                     @endforeach
                   </select>
@@ -45,15 +44,14 @@
 
                <div class="col-md-6">
                 <div class="form-group">
-                  <label style="color: black;">Escribe el parentezco que tiene con el alumno</label>
-                  <input type="text" class="form-control" placeholder="Ejemplo: Padre e hijo" 
-                         value="{{ old('name') }}" name="parentezco">
+                  <label style="color: black;">Escribe el parentezco que tiene familiar</label>
+                  <input type="text" class="form-control" placeholder="Ejemplo: hijo" name="parentezco">
                 </div>   
               </div>
 
             </div>       
             <button type="submit" class="btn btn-success">Agregar parentezco</button>            
-            <a href="{{url('/director/padre_familia/'.$padre->id.'/show')}}" class="btn btn-danger">Regresar</a>
+            <a href="{{url('/director/alumno/'.$alumno->nia.'/show')}}" class="btn btn-danger">Regresar</a>
         </form>        
       </div>
       @if($errors->any())
@@ -89,22 +87,22 @@
            <table class="table table-responsive-sm table-responsive-md table-responsive-lg">
                 <thead>
                     <tr>
-                        <th class="text-center">NIA</th>
-                        <th class="text-center">Alumno</th>                                                                          
+                        <th class="text-center">#</th>
+                        <th class="text-center">Nombre completo</th>
                         <th class="text-center">Parentezco</th>                                                
                         <th class="text-center">Opciones</th>
                     </tr>
                 </thead>                                
                   <tbody>
-                    @foreach($padre->alumnos as $alumno)
+                    @foreach($alumno->padres as $padre)
                       <tr>                                                        
-                          <td class="text-center">{{$alumno->nia}}</td>
-                          <td class="text-center">{{$alumno->name}}</td>
-                          <td class="text-center">{{$alumno->pivot->parentezco}}</td>
+                          <td class="text-center">{{$padre->id}}</td>
+                          <td class="text-center">{{$padre->name}} {{$padre->apellidoP}} {{$padre->apellidoM}} </td>
+                          <td class="text-center">{{$padre->pivot->parentezco}}</td>
                           <td class="td-actions text-center">
-                            <form method="post" action="{{url('director/padre_familia/'.$padre->id.'/alumnos/'.$alumno->nia.'/delete')}}">
+                            <form method="post" action="{{url('director/alumno/'.$alumno->nia.'/familiares/'.$padre->id.'/delete')}}">
                               {{csrf_field()}}                                                                
-                              <button type="submit" rel="tooltip" title="Quitar alumno" class="btn btn-danger btn-fab btn-fab-mini btn-rect btn-sm">
+                              <button type="submit" rel="tooltip" title="Quitar familiar" class="btn btn-danger btn-fab btn-fab-mini btn-rect btn-sm">
                                   <i class="fa fa-times"></i>
                               </button>
                             </form>

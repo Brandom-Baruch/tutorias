@@ -54,10 +54,13 @@ class Docente extends Authenticatable
             return false;
     }
 
-
-
     public function materias()
     {
         return $this->belongsToMany(Materia::class,'imparte')->withTimestamps();
+    }
+
+    public function domicilios()
+    {
+        return $this->belongsToMany(Domicilio::class,'_b__domicilio','docente_id')->withTimestamps();
     }
 }   

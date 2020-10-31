@@ -16,13 +16,13 @@ class CreateBDomicilioTable extends Migration
         Schema::create('_b__domicilio', function (Blueprint $table) {
             $table->increments('id');
             //FK Alumnos
-            $table->integer('nia_id')->unsigned();
-            $table->foreign('nia_id')->references('id')->on('alumnos');
+            $table->integer('alumno_id')->unsigned()->nullable();
+            $table->foreign('alumno_id')->references('id')->on('alumnos');
             //FK Docentes
-            $table->integer('docente_id')->unsigned();
+            $table->integer('docente_id')->unsigned()->nullable();
             $table->foreign('docente_id')->references('id')->on('alumnos');
             //FK Padres de familia
-            $table->integer('padre_id')->unsigned();
+            $table->integer('padre_id')->unsigned()->nullable();
             $table->foreign('padre_id')->references('id')->on('alumnos');
             //FK Domilicio
             $table->integer('domicilio_id')->unsigned();

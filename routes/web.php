@@ -88,6 +88,12 @@ Route::middleware(['auth:docente'])->prefix('director/')->group(function () { //
 	Route::post('/alumno/{nia}/delete','Director\AlumnoController@destroy');
 	//Buscar un alumno 
 	Route::get('/alumno/search','Director\SearchController@showAlumno');
+	//Mostrar los datos del alumno
+	Route::get('/alumno/{alumno}/show','Director\AlumnoController@show');
+	//Asignar parentezco de alumnos para el padre de familia indicado
+	Route::get('/alumno/{nia}/familiares','Director\AsignarFamiliarController@index');
+	Route::post('/alumno/{nia}/familiares','Director\AsignarFamiliarController@store');
+	Route::post('/alumno/{nia}/familiares/{padre_id}/delete','Director\AsignarFamiliarController@destroy');
 	
 	//PADRE DE FAMILIA
 	Route::get('/padres_familia/index','Director\PadreFamiliaController@index');
@@ -116,6 +122,35 @@ Route::middleware(['auth:docente'])->prefix('director/')->group(function () { //
 	Route::post('/materia/{id}/docentes','Director\AsignarMateriasController@store');//Asignar materia a los docentes
 	//quitar materia asignada para el docente
 	Route::post('/materia/{materia_id}/docentes/{docente_id}/delete','Director\AsignarMateriasController@destroy'); 
+	//Agregar direcciones
+	Route::get('/domicilios/index','Director\DomicilioController@index');
+	Route::get('/domicilio/create','Director\DomicilioController@create');
+	Route::post('/domicilio/create','Director\DomicilioController@store');
+	Route::get('/domicilio/{id}/edit', 'Director\DomicilioController@edit');
+	Route::post('/domicilio/{id}/edit', 'Director\DomicilioController@update');
+	Route::post('/domicilio/{id}/delete', 'Director\DomicilioController@destroy');
+	//Asignar domicilio para Docente, Alumno y Padre
+	Route::get('padre_familia/{id}/domicilio', 'Director\AsignarDomicilioController@padre_create');
+	Route::post('padre_familia/{id}/domicilio', 'Director\AsignarDomicilioController@padre_store');
+	Route::post('padre_familia/{padre_id}/domicilio/{domicilio_id}/delete', 'Director\AsignarDomicilioController@padre_destroy');
+	//Alumno
+	Route::get('alumno/{nia}/domicilio', 'Director\AsignarDomicilioController@alumno_create');//Mostrar la vista
+	Route::post('alumno/{nia}/domicilio', 'Director\AsignarDomicilioController@alumno_store');//Agregar el domicilio
+	Route::post('alumno/{nia}/domicilio/{domicilio_id}/delete', 'Director\AsignarDomicilioController@alumno_destroy');//Eliminar 
+	//Docente
+	Route::get('docente/{id}/domicilio','Director\AsignarDomicilioController@docente_create');
+	Route::post('docente/{id}/domicilio','Director\AsignarDomicilioController@docente_store');
+	Route::post('docente/{docente_id}/domicilio/{domicilio_id}/delete','Director\AsignarDomicilioController@docente_destroy');
+	//Grupo
+	Route::get('grupos/index','Director\GrupoController@index');
+	Route::get('grupos/create','Director\GrupoController@create');
+	Route::post('grupos/create','Director\GrupoController@store');
+	Route::get('grupo/{id}/edit','Director\GrupoController@edit');
+	Route::post('grupo/{id}/edit','Director\GrupoController@update');
+	Route::post('grupo/{id}/delete', 'Director\GrupoController@destroy');
+	//Mostrar el grupo seleccionado
+	Route::get('grupo/{grupo}/alumnos/show', 'Director\GrupoController@alumnos_show');
+	Route::get('grupo/{grupo}/materias/show', 'Director\GrupoController@materias_show');
 
 });
 

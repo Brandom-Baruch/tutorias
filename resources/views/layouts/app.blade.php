@@ -15,7 +15,7 @@
   <!-- CSS Files -->
   
   <link href="{{asset('css/material-kit.css')}}" rel="stylesheet" />    
-  @yield('estilo')  
+  @yield('styles')  
 </head>
 
 <body class="@yield('body-class')">

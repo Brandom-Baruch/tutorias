@@ -169,7 +169,7 @@
                           </div>                        
                     </div>
 
-                    <div class="col-sm-2">
+                    <div class="col-sm-3">
 	                      <div class="form-group {{ $errors->has('ocupacion') ? ' has-error' : '' }}">
 	                        <label>Ocupación</label>
 	                        <input type="text" class="form-control" 

@@ -39,7 +39,7 @@
               </select>
             </div>          
             <button class="btn btn-success">Agregar puesto</button>            
-            <a href="{{url('/director/docentes/index')}}" class="btn btn-danger">Regresar al panel de docentes</a>
+            <a href="{{url('/director/docentes/index')}}" class="btn btn-danger">Regresar</a>
         </form>        
       </div>    
       <div class="tab-content tab-space">        

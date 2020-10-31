@@ -172,4 +172,12 @@ class AlumnoController extends Controller
         return back()->with(compact('eliminado_alumno'));
 
     }
+
+    public function show(Request $request, $nia)
+    {
+        $alumno = Alumno::find($nia);
+        $grupo = Grupo::find($alumno->grupo->id);        
+        $materia = $grupo->materias()->get();        
+        return view('director.alumno.alumno_show')->with(compact('alumno','grupo','materia'));
+    }
 }

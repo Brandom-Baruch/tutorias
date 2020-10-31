@@ -25,4 +25,9 @@ class Padre_familia extends Authenticatable
         return $this->belongsToMany(Alumno::class, 'parentezcos','padre_id','alumno_id')->withPivot('parentezco')->withTimestamps();
     }
 
+    public function domicilios()
+    {
+        return $this->belongsToMany(Domicilio::class,'_b__domicilio', 'padre_id')->withTimestamps();
+    }
+
 }

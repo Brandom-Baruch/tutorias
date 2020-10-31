@@ -92,7 +92,7 @@
                             {{csrf_field()}}
 
                             <a href="{{url('director/padre_familia/'.$padre->id.'/alumnos')}}" rel="tooltip" title="Asignar Parentezco" class="btn btn-warning btn-fab btn-fab-mini btn-rect btn-sm">
-                                <i class="fa fa-user"></i>
+                                <i class="material-icons">person_search</i>
                             </a>
 
                             <a href="{{url('director/padre_familia/'.$padre->id.'/show')}}" rel="tooltip" title="Ver Padre de familia" class="btn btn-info btn-fab btn-fab-mini btn-rect btn-sm">

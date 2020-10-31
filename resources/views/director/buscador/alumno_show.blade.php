@@ -43,22 +43,15 @@
               <div class="team-player">
                 <div class="card card-plain">
                   <div class="col-md-6 ml-auto mr-auto">
-                    <img src="{{asset('img/alumno.png')}}" alt="Thumbnail Image" class="img-raised rounded-circle img-fluid">
+                    <img src="{{asset('img/alumno.png')}}" alt="Imagen representativa para el alumno" class="img-raised rounded-circle img-fluid">
                   </div>
-                  <h4 class="card-title">{{$alumno->name}} {{$alumno->apellidoP}} {{$alumno->apellidoM}}
-                    <br>
-                    <small class="card-description text-muted">Grupo: <b class="text-dark">{{$alumno->grupo->name}}</b> </small>
-                  </h4>
-                  <div class="card-body">
-                    <p class="card-description">You can write here details about one of your team members. You can give more details about what they do. Feel free to add some
-                      <a href="#">links</a> for people to be able to follow them outside the site.</p>
-                  </div>
+                  <h4 class="card-title">{{$alumno->name}} {{$alumno->apellidoP}} {{$alumno->apellidoM}}</h4>                         
                   <div class="card-footer justify-content-center">
                     <a href="{{url('/director/alumno/'.$alumno->nia.'/edit')}}" rel="tooltip" 
                        title="Editar Alumno" class="btn btn-success btn-fab btn-fab-mini btn-rect btn-sm" target="_blank" style="margin-right: 10px;">
                       <i class="fa fa-edit"></i>
                     </a>
-                    <a href="#" rel="tooltip" 
+                    <a href="{{url('director/alumno/'.$alumno->nia.'/show')}}" rel="tooltip" 
                        title="Ver Alumno" class="btn btn-info btn-fab btn-fab-mini btn-rect btn-sm" target="_blank">
                       <i class="fa fa-user"></i>
                     </a>
@@ -69,7 +62,7 @@
             @endforeach
           </div>
         </div>
-      </div>
+     </div>
     </div>
   </div>
 </div>

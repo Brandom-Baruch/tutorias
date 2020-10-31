@@ -21,6 +21,9 @@ class AlumnoTableSeeder extends Seeder
         {
         	$alumnos = factory(Alumno::class,10)->make();
         	$grupo->alumnos()->saveMany($alumnos);
+
+            $materias = factory(App\Materia::class,10)->make();
+            $grupo->materias()->saveMany($materias);
         });
        
 

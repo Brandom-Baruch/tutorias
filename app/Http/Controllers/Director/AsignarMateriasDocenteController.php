@@ -20,7 +20,16 @@ class AsignarMateriasDocenteController extends Controller
 
     public function store(Request $request , $id)
     {   
-        
+        /*$rules = [
+            'materia_id' => 'unique:imparte'
+        ];
+
+        $message = [
+            'materia_id.unique' => 'Esta materia ya se agrego',
+        ]; */
+
+        //$this->validate($request, $rules, $message);
+
         $docente = Docente::find($id);
         $imparte = new Imparte;                        
         $imparte->docente_id = $docente->id;
@@ -30,10 +39,10 @@ class AsignarMateriasDocenteController extends Controller
         return back()->with(compact('mensaje'));
     }
 
-    public function destroy($materia_id , $docente_id)
+    public function destroy($docente_id ,$materia_id)
     {        
         $docente = Docente::find($docente_id);
-        $docente->docentes()->detach($materia_id);        
+        $docente->materias()->detach($materia_id);        
         $mensaje = 'Se ha eliminado la materia exitosamente';
         return back()->with(compact('mensaje'));
     }

@@ -1,6 +1,6 @@
 @extends('layouts.app')
 
-@section('titulo','Información del docente ')
+@section('titulo','Información del alumno ' . $alumno->name)
 
 @section('body-class','profile-page sidebar-collapse')
 
@@ -22,17 +22,20 @@
           <div class="col-md-6 ml-auto mr-auto">
             <div class="profile">
               <div class="avatar">
-                <img src="{{url('img/docente_1.jpg')}}" alt="Circle Image" class="img-raised rounded-circle img-fluid">
+                <img src="{{url('img/alumno.png')}}" alt="Circle Image" class="img-raised rounded-circle img-fluid">
               </div>
               <div class="name">
-                <h3 class="title">Información del docente <b class="text-primary">{{$docentes->name}}</b></h3>                
+                <h3 class="title">Información del alumno <b class="text-primary">{{$alumno->name}}</b></h3>                
               </div>
             </div>
           </div>          
         </div>        
         @if (session('mensaje')) <!--Si existe un mensaje, mostrara el contenido del mensaje-->             
             <div class="alert alert-success text-left">
-                <div class="container-fluid">                  
+                <div class="container-fluid">
+                  <div class="alert-icon">
+                    <i class="material-icons">check</i>
+                  </div>
                   <button type="button" class="close" data-dismiss="alert" aria-label="Close">
                     <span aria-hidden="true"><i class="material-icons">clear</i></span>
                   </button>
@@ -67,13 +70,13 @@
                   </a>
                 </li>
                 <li class="nav-item">
-                  <a class="nav-link" href="#materias" role="tab" data-toggle="tab">
-                    <i class="material-icons">chrome_reader_mode</i> Materias
+                  <a class="nav-link" href="#parentezco" role="tab" data-toggle="tab">
+                    <i class="material-icons">person_search</i> Parentezcos
                   </a>
                 </li> 
                 <li class="nav-item">
-                  <a class="nav-link" href="#puestos" role="tab" data-toggle="tab">
-                    <i class="material-icons">folder_shared</i> Puestos
+                  <a class="nav-link" href="#materias" role="tab" data-toggle="tab">
+                    <i class="material-icons">chrome_reader_mode</i> Materias
                   </a>
                 </li>                
               </ul>
@@ -82,41 +85,53 @@
         </div>
         <div class="tab-content tab-space">
           <div class="tab-pane active text-center gallery" id="datos">
-            <div class="form-row">            	
-                <div class="form-group col-md-4">
+            <div class="form-row">
+            	<div class="form-group col-md-2">
+                  <label class="text-dark" class="text-dark">Nia</label>
+                  <input type="text" class="form-control" value="{{ $alumno->nia}}">            
+                </div>
+                <div class="form-group col-md-3">
                   <label class="text-dark" class="text-dark">Nombre(s)</label>
-                  <input type="text" class="form-control" value="{{ $docentes->name}}">            
+                  <input type="text" class="form-control" value="{{ $alumno->name}}">            
                 </div>
-                <div class="form-group col-md-4">
+                <div class="form-group col-md-3">
                   <label class="text-dark">Apellido Paterno</label>
-                  <input type="text" class="form-control" value="{{ $docentes->apellidoP}}">            
+                  <input type="text" class="form-control" value="{{ $alumno->apellidoP}}">            
                 </div>
-                <div class="form-group col-md-4">
+                <div class="form-group col-md-3">
                   <label class="text-dark">Apellido Materno</label>
-                  <input type="text" class="form-control" value="{{ $docentes->apellidoM}}">
+                  <input type="text" class="form-control" value="{{ $alumno->apellidoM}}">
                 </div>          
                 <div class="form-group col-md-4">
                   <label class="text-dark">Correo electronico</label>
-                  <input type="text" class="form-control" value="{{ $docentes->email}}">
-                </div>                             
-                <div class="form-group col-md-4">
-                  <label class="text-dark">Telefono celular</label>
-                  <input type="tel" class="form-control" value="{{  $docentes->telefono_cel}}">
+                  <input type="text" class="form-control" value="{{ $alumno->email}}">
                 </div>
-                <div class="form-group col-md-4">
-                  <label class="text-dark">Telefono fijo</label>
-                  <input type="tel" class="form-control" value="{{  $docentes->telefono_fijo}}">
-                </div>                 
+                <div class="form-group col-md-1">
+                  <label class="text-dark">Genero</label>
+                  <input type="text" class="form-control" value="{{$alumno->genero}}">
+                </div>
                 <div class="form-group col-md-2">
+                  <label class="text-dark">Grupo</label>
+                  <input type="text" class="form-control" value="{{ $alumno->grupo->name}}">
+                </div>
+                <div class="form-group col-md-2">
+                  <label class="text-dark">Telefono celular</label>
+                  <input type="tel" class="form-control" value="{{  $alumno->phone}}">
+                </div>
+                <div class="form-group col-md-2">
+                  <label class="text-dark">Fecha de nacimiento</label>
+                  <input type="tel" class="form-control" value="{{  $alumno->fechaN}}">
+                </div>                 
+                <div class="form-group col-md-1">
                   <label class="text-dark">Edad</label>
-                  <input type="number" class="form-control" value="{{  $docentes->edad}}">
+                  <input type="number" class="form-control" value="{{  $alumno->edad}}">
                 </div>                
             </div>            
-            <a href="{{url('director/alumno/'.$docentes->id.'/edit')}}" class="btn btn-success" target="_blank">Editar información</a>
-            <a href="{{url('director/docentes/index')}}" class="btn btn-danger">Regresar</a>
+            <a href="{{url('director/alumno/'.$alumno->nia.'/edit')}}" class="btn btn-success" target="_blank">Editar información</a>
+            <a href="{{url('director/padres_familia/index')}}" class="btn btn-danger">Regresar</a>
           </div>
           <div class="tab-pane text-center gallery" id="direccion">                        
-              @foreach($docentes->domicilios as $domicilio)
+              @foreach($alumno->domicilios as $domicilio)
                 <div class="form-row">
                     <div class="form-group col-md-4">
                       <label>Estado</label>
@@ -151,20 +166,53 @@
                       <input type="number" class="form-control" value="{{$domicilio->cp}}">
                     </div>                    
                 </div>    
-                @if($docentes->domicilios->count() == 1)
-                <form method="post" action="{{url('director/docente/'.$docentes->id.'/domicilio/'.$domicilio->id.'/delete')}}" >
+                @if($alumno->domicilios->count() == 1)
+                <form method="post" action="{{url('director/alumno/'.$alumno->nia.'/domicilio/'.$domicilio->id.'/delete')}}" >
                   {{ csrf_field() }}
                   <button type="submit" class="btn btn-primary" >¿El domicilio no es el correcto?</button>              
-                  <a href="{{url('director/docentes/index')}}" class="btn btn-danger">Regresar</a>
+                  <a href="{{url('director/alumnos/index')}}" class="btn btn-danger">Regresar</a>
                 </form>                
                 @endif                                          
               @endforeach   
-              @if($docentes->domicilios->count() == 0)
-                <a href="{{url('director/docente/'.$docentes->id.'/domicilio')}}" class="btn btn-success">Agregar Domicilio</a>
-                <a href="{{url('director/docentes/index')}}" class="btn btn-danger">Regresar</a>                            
+              @if($alumno->domicilios->count() == 0)
+                <a href="{{url('director/alumno/'.$alumno->nia.'/domicilio')}}" class="btn btn-success">Agregar Domicilio</a>
+                <a href="{{url('director/alumnos/index')}}" class="btn btn-danger">Regresar</a>                            
               @endif
           </div>
-          <div class="tab-pane text-center gallery" id="materias">
+          <div class="tab-pane text-center gallery" id="parentezco">
+            <div class="row">
+              <table class="table table-responsive-sm table-responsive-md table-responsive-lg">
+                <thead>
+                    <tr>
+                        <th class="text-center">#</th>
+                        <th class="text-center">Nombre</th>                                                                          
+                        <th class="text-center">Apellido Paterno</th>
+                        <th class="text-center">Parentezco</th>
+                        <th class="text-center">Opciones</th>                                                                        
+                    </tr>
+                </thead>                                
+                  <tbody>
+                    @foreach($alumno->padres as $padre)
+                      <tr>
+                          <td class="text-center">{{$padre->id}}</td>                                                        
+                          <td class="text-center">{{$padre->name}}</td>
+                          <td class="text-center">{{$padre->apellidoP}}</td>
+                          <td class="text-center">{{$padre->pivot->parentezco}}</td>
+                          <td class="td-actions">                                                     
+                            <a href="{{url('/director/padre_familia/'.$padre->id.'/show')}}" 
+                                rel="tooltip" title="Ver Familiar" class="btn btn-info btn-fab btn-fab-mini btn-rect btn-sm" target="_blank">
+                                <i class="material-icons">person</i>
+                            </a>                                                      
+                          </td>
+                      </tr>               
+                    @endforeach
+                  </tbody>                                
+              </table>                
+            </div>
+            <a href="{{url('director/alumno/'.$alumno->nia.'/familiares')}}" class="btn btn-success" target="_blank">Agregar familiar</a>
+            <a href="{{url('director/alumnos/index')}}" class="btn btn-danger">Regresar</a>
+          </div>
+          <div class="tab-pane text-center gallery" id="materias">            
             <div class="row">
               <table class="table table-responsive-sm table-responsive-md table-responsive-lg">
                 <thead>
@@ -176,58 +224,27 @@
                         <th class="text-center">Opciones</th>                                                                        
                     </tr>
                 </thead>                                
-                  <tbody>
-                    @foreach($docentes->materias as $materia)
-                      <tr>
-                          <td class="text-center">{{$materia->id}}</td>                                                        
-                          <td class="text-center">{{$materia->name}}</td>
-                          <td class="text-center">{{$materia->descripcion}}</td>
-                          <td class="text-center">{{$materia->clave}}</td>
-                          <td class="td-actions">                                                     
-                            <a href="{{url('/director/padre_familia/'.$docentes->id.'/show')}}" 
-                                rel="tooltip" title="Ver Materia" class="btn btn-info btn-fab btn-fab-mini btn-rect btn-sm" target="_blank">
-                                <i class="material-icons">menu_book</i>
-                            </a>                                                      
-                          </td>
-                      </tr>               
-                    @endforeach
-                  </tbody>                                
-              </table>                
-            </div>
-            <a href="{{url('director/docente/'.$docentes->id.'/materias')}}" class="btn btn-success" target="_blank">Agregar materia</a>
-            <a href="{{url('director/docentes/index')}}" class="btn btn-danger">Regresar</a>
-          </div>
-          <div class="tab-pane text-center gallery" id="puestos">
-            <div class="row" >
-              <table class="table table-responsive-sm table-responsive-md table-responsive-lg">
-                <thead>
+                <tbody>
+                  @foreach($materia as $materia)
                     <tr>
-                        <th class="text-center">#</th>
-                        <th class="text-center">Nombre</th>                                                                          
-                        <th class="text-center">Descripción</th>                        
-                        <th class="text-center">Opciones</th>                                                                        
-                    </tr>
-                </thead>                                
-                  <tbody>
-                    @foreach($docentes->puestos as $puesto)
-                      <tr>
-                          <td class="text-center">{{$puesto->id}}</td>                                                        
-                          <td class="text-center">{{$puesto->puesto}}</td>
-                          <td class="text-center">{{$puesto->descripcion}}</td>                          
-                          <td class="td-actions">                                                     
-                            <a href="{{url('/director/padre_familia/'.$docentes->id.'/show')}}" 
-                                rel="tooltip" title="Ver Puesto" class="btn btn-info btn-fab btn-fab-mini btn-rect btn-sm" target="_blank">
-                                <i class="material-icons">account_box</i>
-                            </a>                                                      
-                          </td>
-                      </tr>               
-                    @endforeach
-                  </tbody>                                
+                        <td class="text-center">{{$materia->id}}</td>                                                        
+                        <td class="text-center">{{$materia->name}}</td>
+                        <td class="text-center">{{$materia->clave}}</td>
+                        <td class="text-center">{{$materia->descripcion}}</td>
+                        <td class="td-actions">                                                     
+                          <a href="{{url('/director/padre_familia/'.$grupo->id.'/show')}}" 
+                              rel="tooltip" title="Ver Familiar" class="btn btn-info btn-fab btn-fab-mini btn-rect btn-sm" target="_blank">
+                              <i class="material-icons">person</i>
+                          </a>                                                      
+                        </td>
+                    </tr>               
+                  @endforeach
+                </tbody>                                
               </table>                
             </div>
-            <a href="{{url('director/docente/'.$docentes->id.'/puestos')}}" class="btn btn-success" target="_blank">Agregar puesto</a>
-            <a href="{{url('director/docentes/index')}}" class="btn btn-danger">Regresar</a>
-          </div>            
+            <a href="{{url('director/alumno/'.$alumno->nia.'/familiares')}}" class="btn btn-success" target="_blank">Agregar familiar</a>
+            <a href="{{url('director/alumnos/index')}}" class="btn btn-danger">Regresar</a>
+          </div>         
         </div>              
       </div>
     </div>

@@ -20,7 +20,7 @@ class SearchController extends Controller
             //Obtenemos su id
             $nia = $alumnos->first()->nia;
             //se dirije a la vista de editar
-            return redirect("director/alumno/$nia/edit");
+            return redirect("director/alumno/$nia/show");
         }
    		return view('director.buscador.alumno_show')->with(compact('alumnos', 'search'));
 
@@ -32,7 +32,7 @@ class SearchController extends Controller
     	$padres = padre::select()->where('name', 'like',"%$search%")->get();
         if ($padres->count() == 1) {
             $id = $padres->first()->id;
-            return redirect("director/padre_familia/$id/edit");
+            return redirect("director/padre_familia/$id/show");
         }
    		return view('director.buscador.padre_show')->with(compact('padres', 'search'));
     }

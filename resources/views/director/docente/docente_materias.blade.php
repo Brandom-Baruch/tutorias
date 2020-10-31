@@ -27,7 +27,6 @@
       </div>
       <div class="description text-center">       
         <h3 class="title">Agregar materias para el docente <b class="text-primary">{{$docente->name}}</b></h3>         
-
         <form method="post" action="{{url('director/docente/'.$docente->id.'/materias')}}">
           {{ csrf_field() }}
             <div class="form-group">
@@ -41,7 +40,21 @@
             <button type="submit" class="btn btn-success">Agregar puesto</button>            
             <a href="{{url('/director/docentes/index')}}" class="btn btn-danger">Regresar al panel de docentes</a>
         </form>        
-      </div>    
+      </div>
+        @if($errors->any())
+        <div class="alert alert-danger">
+            <div class="container-fluid">                     
+              <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                <span aria-hidden="true"><i class="material-icons">clear</i></span>
+              </button>
+              <ul>    
+                  @foreach($errors->all() as $error)                        
+                  <li>{{$error}}</li>
+                  @endforeach
+              </ul>
+            </div>
+        </div>
+      @endif    
       <div class="tab-content tab-space">        
        @if (session('mensaje')) <!--Si existe un mensaje, mostrara el contenido del mensaje-->             
             <div class="alert alert-success text-left">

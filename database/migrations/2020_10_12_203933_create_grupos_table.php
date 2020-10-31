@@ -19,11 +19,7 @@ class CreateGruposTable extends Migration
             $table->string('grado');
             $table->char('grupo');
             $table->string('semestre');
-            $table->year('year');
-            //FK
-            $table->integer('asignada_id')->unsigned();
-            $table->foreign('asignada_id')->references('id')->on('asignadas');
-
+            $table->year('year');            
             $table->timestamps();
         });
     }

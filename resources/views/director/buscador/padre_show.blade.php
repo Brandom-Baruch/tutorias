@@ -45,21 +45,14 @@
                   <div class="col-md-6 ml-auto mr-auto">
                     <img src="{{asset('img/padre6.png')}}" alt="Thumbnail Image" class="img-raised rounded-circle img-fluid">
                   </div>
-                  <h4 class="card-title">{{$padre->name}} {{$padre->apellidoP}} {{$padre->apellidoM}}
-                    <br>
-                    <small class="card-description text-muted">Parentezco: <b class="text-dark"></b> </small>
-                  </h4>
-                  <div class="card-body">
-                    <p class="card-description">You can write here details about one of your team members. You can give more details about what they do. Feel free to add some
-                      <a href="#">links</a> for people to be able to follow them outside the site.</p>
-                  </div>
+                  <h4 class="card-title">{{$padre->name}} {{$padre->apellidoP}} {{$padre->apellidoM}}</h4>                  
                   <div class="card-footer justify-content-center">
                     <a href="{{url('director/padre_familia/'.$padre->id.'/edit')}}"
-                       rel="tooltip" title="Editar Padre de familia" 
+                       rel="tooltip" title="Editar Familiar" 
                        class="btn btn-success btn-fab btn-fab-mini btn-rect btn-sm" target="_blank" style="margin-right: 10px;">
                        <i class="fa fa-edit"></i>                      
                     </a>
-                    <a href="{{url('director/padre_familia/'.$padre->id.'/show')}}" rel="tooltip" title="Ver Padre de familia" class="btn btn-info btn-fab btn-fab-mini btn-rect btn-sm" 
+                    <a href="{{url('director/padre_familia/'.$padre->id.'/show')}}" rel="tooltip" title="Ver Familiar" class="btn btn-info btn-fab btn-fab-mini btn-rect btn-sm" 
                        target="_blank">
                       <i class="fa fa-user"></i>
                     </a>
