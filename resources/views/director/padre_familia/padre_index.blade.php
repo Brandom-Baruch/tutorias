@@ -7,6 +7,10 @@
 @section('opciones_director')    
 
   @include('includes.links_director')
+  <a href="{{url('docente')}}">Panel de control</a>
+  @if(Auth::user()->puestos()->where('puesto','Tutor')->first() && Auth::user()->materias()->where('name','like','Tutorias%')->first())
+  <a href="{{url('docente/tutorias')}}">Tutorias</a>
+  @endif
 
 @endsection
 
@@ -36,7 +40,7 @@
             </button>
           </form>
       </div>        
-      <div class="tab-pane  text-center gallery" id="docentes">
+      <div>
        @if (session('mensaje')) <!--Si existe un mensaje, mostrara el contenido del mensaje-->             
             <div class="alert alert-success text-left">
                 <div class="container-fluid">
@@ -68,10 +72,10 @@
                 <thead>
                     <tr>
                         <th class="text-center">#</th>
-                        <th>Nombre</th>
-                        <th>Apellido Paterno</th>
-                        <th>Apellido Materno</th>
-                        <th class="text-center">Ocupación</th>
+                        <th class="text-center">Nombre</th>
+                        <th class="text-center">Apellido Paterno</th>
+                        <th class="text-center">Apellido Materno</th>
+                        <th class="text-center">Curp</th>
                         <th class="text-center">Profesión</th>
                         <th class="text-center">Escolaridad</th>
                         <th class="text-center">Opciones</th>
@@ -81,10 +85,10 @@
                 <tbody>                
                     <tr>
                         <td class="text-center">{{$padre->id}}</td>
-                        <td>{{$padre->name}}</td>
-                        <td>{{$padre->apellidoP}}</td>
-                        <td>{{$padre->apellidoM}}</td>
-                        <td class="text-center">{{$padre->ocupacion}}</td>
+                        <td class="text-center">{{$padre->name}}</td>
+                        <td class="text-center">{{$padre->apellidoP}}</td>
+                        <td class="text-center">{{$padre->apellidoM}}</td>
+                        <td class="text-center">{{$padre->curp}}</td>
                         <td class="text-center">{{$padre->profesion}}</td>
                         <td class="text-center">{{$padre->escolaridad}}</td>
                         <td class="td-actions text-right">

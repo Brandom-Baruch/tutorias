@@ -7,7 +7,10 @@
 @section('opciones_director')    
 
   @include('includes.links_director')
-
+  <a href="{{url('docente')}}">Panel de control</a>
+  @if(Auth::user()->puestos()->where('puesto','Tutor')->first() && Auth::user()->materias()->where('name','like','Tutorias%')->first())
+  <a href="{{url('docente/tutorias')}}">Tutorias</a>
+  @endif
 @endsection
 
 @section('content')
@@ -26,17 +29,16 @@
         </div>
       </div>
       <div class="description text-center">
-        <h3 class="title">Listado de Alumnos</h3>                                                                                          
+        <h3 class="title">Listado de Alumnos</h3>                                                                                   
         <form method="get" action="{{url('/director/alumno/search')}}" class="form-inline p-5">
-          <a href="{{url('/director/alumno/create')}}" class="btn btn-primary" style="margin-right:  20px; ">Agregar nuevo Alumno</a>
+          <a href="{{url('/director/alumno/create')}}" class="btn btn-primary" style="margin-right:20px;">Agregar nuevo Alumno</a>
           <input type="text"  placeholder="¿Qué alumno buscas?" class="form-control text-center " name="search">
           <button type="submit" class="btn btn-primary btn-fab  btn-rect">
               <i class="material-icons">search</i>
           </button>
         </form>
-      </div>                            
-      <div class="text-center gallery">        
-       @if (session('mensaje')) <!--Si existe un mensaje, mostrara el contenido del mensaje-->             
+      </div>                                          
+       @if (session('mensaje'))
             <div class="alert alert-success text-left">
                 <div class="container-fluid">
                   <div class="alert-icon">
@@ -49,7 +51,7 @@
                 </div>
             </div>
         @endif
-        @if (session('eliminado')) <!--Si existe un de la variable eliminado, mostrara el contenido del de la variable eliminado-->           
+        @if (session('eliminado'))            
             <div class="alert alert-danger text-left">
                 <div class="container-fluid">
                   <div class="alert-icon">
@@ -61,9 +63,8 @@
                   {{ session('eliminado') }}
                 </div>
             </div>
-        @endif           
-          <!--<a href="{{url('/director/alumno/create')}}" class="btn btn-primary">Agregar nuevo Alumno</a>-->                          
-        <div class="row">          
+        @endif                     
+        <div class="row text-center">          
           <table class="table table-responsive-sm table-responsive-md table-responsive-lg">
               <thead>
                   <tr>
@@ -71,7 +72,7 @@
                       <th>Nombre</th>
                       <th>Apellido Paterno</th>
                       <th>Apellido Materno</th>
-                      <th class="text-right">Grupo</th>
+                      <th class="text-center">Correo electrónico</th>
                       <th class="text-right">Actions</th>
                   </tr>
               </thead>
@@ -82,7 +83,7 @@
                       <td>{{$alumno->name}}</td>
                       <td>{{$alumno->apellidoP}}</td>
                       <td>{{$alumno->apellidoM}}</td>
-                      <td class="text-right">{{$alumno->grupo_nombre}}</td>
+                      <td>{{$alumno->email}}</td>
                       <td class="td-actions text-right">
                         <form method="post" action="{{url('/director/alumno/'.$alumno->nia.'/delete')}}">
                             {{csrf_field()}}                          
@@ -104,10 +105,13 @@
                   </tr>                 
               </tbody>              
               @endforeach
-          </table>
-          {{ $alumnos->links("pagination::bootstrap-4") }}
-        </div>                                                                       
-      </div>                       
+          </table>          
+        </div>    
+        <div class="d-flex">
+            <div class="mx-auto">
+              {{ $alumnos->links("pagination::bootstrap-4") }}
+            </div>
+        </div>                                                                                                          
     </div>
   </div>
 </div>

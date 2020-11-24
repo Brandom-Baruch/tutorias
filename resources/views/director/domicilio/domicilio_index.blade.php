@@ -7,7 +7,10 @@
 @section('opciones_director')    
 
   @include('includes.links_director')
-
+  <a href="{{url('docente')}}">Panel de control</a>
+  @if(Auth::user()->puestos()->where('puesto','Tutor')->first() && Auth::user()->materias()->where('name','like','Tutorias%')->first())
+  <a href="{{url('docente/tutorias')}}">Tutorias</a>
+  @endif
 @endsection
 
 @section('content')
@@ -97,6 +100,11 @@
               </tbody>
               @endforeach
           </table>                                 
+        </div>
+        <div class="d-flex">
+            <div class="mx-auto">
+              {{ $domicilios->links("pagination::bootstrap-4") }}
+            </div>
         </div>                                                                        
       </div>                       
     </div>

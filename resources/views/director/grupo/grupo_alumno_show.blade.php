@@ -10,25 +10,6 @@
 
 @endsection
 
-@section('styles')
-    <style>
-          .team .row .col-md-4 {
-            margin-bottom: 5em;
-        }
-        .row {
-          display: -webkit-box;
-          display: -webkit-flex;
-          display: -ms-flexbox;
-          display:         flex;
-          flex-wrap: wrap;
-        }
-        .row > [class*='col-'] {
-          display: flex;
-          flex-direction: column;
-        }
-
-    </style>
-@endsection
 
 @section('content')
 <div class="page-header header-filter" data-parallax="true" style="background-image: url('{{asset('img/galaxia.jpg')}} '); height: 280px"></div>
@@ -46,8 +27,7 @@
       <div class="description text-center">
         <h3 class="title">Alumnos que pertenecen al grupo <b class="text-primary">{{$grupo->name}}</b></h3>                           
       </div>                            
-      <div class="text-center gallery">                        
-          <a href="{{url('/director/grupo/alumno')}}" class="btn btn-primary">Agregar Alumno</a>
+      <div class="text-center gallery">                                  
           <a href="{{url('/director/grupo/'.$grupo->id.'/materias/show')}}" class="btn btn-primary">Materias del grupo</a>
           <div class="team">
     	      <div class="row">
@@ -68,9 +48,9 @@
                     </h4>               
     	              <div class="card-footer justify-content-center">	                	                	
     	              	<div>
-            		        <form method="post" action="{{url('/director/grupo/'.$alumno->id.'/delete')}}">
+            		        <form method="post" action="{{url('/director/grupo/'.$grupo->id.'/alumno/'.$alumno->nia.'/delete')}}">
                             {{csrf_field()}}                                                 
-                          <a href="{{url('/director/grupo/'.$alumno->id.'/edit')}}" rel="tooltip" title="Editar Grupo" 
+                          <a href="{{url('/director/alumno/'.$alumno->nia.'/edit')}}" rel="tooltip" title="Editar Grupo" 
                           class="btn btn-success btn-fab btn-fab-mini btn-rect btn-sm">
                               <i class="fa fa-edit"></i>
                           </a>

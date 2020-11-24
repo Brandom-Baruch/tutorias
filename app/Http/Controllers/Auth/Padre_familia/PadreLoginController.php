@@ -32,7 +32,7 @@ class PadreLoginController extends Controller
 
     	if(Auth::guard('padre')->attempt(['email' => $request->email, 'password' => $request->password]))
     	{
-    		return redirect('/padre');
+    		return redirect('/padre_familia');
     	}else{
     		return back()->withInput($request->only('email'));
     	}

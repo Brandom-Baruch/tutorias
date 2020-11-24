@@ -1,7 +1,14 @@
 @extends('layouts.app')
 
 @section('titulo','Agregar Grupo')
+
 @section('body-class','profile-page sidebar-collapse')
+
+@section('opciones_director')    
+
+  @include('includes.links_director')
+
+@endsection
 
 @section('content')
 

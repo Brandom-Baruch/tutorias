@@ -18,7 +18,7 @@ class Docente extends Authenticatable
     {
         return $this->belongsToMany(Puesto::class,'puesto_asignados')->withTimestamps();
     }
-
+  
     public function autorizarPuestos($puestos)
     {
         if($this->hasAnyPuesto($puestos))
@@ -56,11 +56,12 @@ class Docente extends Authenticatable
 
     public function materias()
     {
-        return $this->belongsToMany(Materia::class,'imparte')->withTimestamps();
+        return $this->belongsToMany(Materia::class,'imparte')->withPivot('materia_id')->withTimestamps();
     }
 
     public function domicilios()
     {
         return $this->belongsToMany(Domicilio::class,'_b__domicilio','docente_id')->withTimestamps();
     }
+
 }   

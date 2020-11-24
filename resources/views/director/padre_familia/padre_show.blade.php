@@ -83,51 +83,51 @@
             <div class="form-row">
                 <div class="form-group col-md-4">
                   <label class="text-dark" class="text-dark">Nombre(s)</label>
-                  <input type="text" class="form-control" value="{{ old('name', $padre->name) }}" name="name">            
+                  <input type="text" class="form-control" value="{{$padre->name}}" name="name">            
                 </div>
                 <div class="form-group col-md-4">
                   <label class="text-dark">Apellido Paterno</label>
-                  <input type="text" class="form-control" value="{{ old('apellidoP', $padre->apellidoP) }}" name="apellidoP">            
+                  <input type="text" class="form-control" value="{{$padre->apellidoP}}" name="apellidoP">            
                 </div>
                 <div class="form-group col-md-4">
                   <label class="text-dark">Apellido Materno</label>
-                  <input type="text" class="form-control" value="{{ old('apellidoM', $padre->apellidoM) }}" name="apellidoM">
+                  <input type="text" class="form-control" value="{{$padre->apellidoM}}" name="apellidoM">
                 </div>          
                 <div class="form-group col-md-4">
                   <label class="text-dark">Correo electronico</label>
-                  <input type="text" class="form-control" value="{{ old('email', $padre->email) }}" name="email">
+                  <input type="text" class="form-control" value="{{$padre->email}}" name="email">
                 </div>
                 <div class="form-group col-md-4">
                   <label class="text-dark">profesion</label>
-                  <input type="text" class="form-control" value="{{ old('profesion', $padre->profesion) }}" name="profesion">
+                  <input type="text" class="form-control" value="{{$padre->profesion}}" name="profesion">
                 </div>
                 <div class="form-group col-md-4">
                   <label class="text-dark">Ocupación</label>
-                  <input type="text" class="form-control" value="{{ old('ocupacion', $padre->ocupacion) }}" name="ocupacion">
+                  <input type="text" class="form-control" value="{{$padre->ocupacion}}" name="ocupacion">
                 </div>
                 <div class="form-group col-md-3">
                   <label class="text-dark">Telefono fijo</label>
-                  <input type="tel" class="form-control" value="{{ old('telefono_fijo' , $padre->telefono_fijo) }}"name="telefono_fijo">
+                  <input type="tel" class="form-control" value="{{ $padre->telefono_fijo}}"name="telefono_fijo">
                 </div>
                 <div class="form-group col-md-3">
                   <label class="text-dark">Telefono celular</label>
-                  <input type="tel" class="form-control" value="{{ old('telefono_cel' , $padre->telefono_cel) }}"name="telefono_cel">
+                  <input type="tel" class="form-control" value="{{ $padre->telefono_cel}}"name="telefono_cel">
                 </div> 
                 <div class="form-group col-md-3">
                   <label class="text-dark">Curp</label>
-                  <input type="text" class="form-control" value="{{ old('curp' , $padre->curp) }}"name="curp">
+                  <input type="text" class="form-control" value="{{ $padre->curp}}"name="curp">
                 </div>
                 <div class="form-group col-md-3">
                   <label class="text-dark">Escolaridad</label>
-                  <input type="text" class="form-control" value="{{ old('escolaridad' , $padre->escolaridad) }}"name="escolaridad">
+                  <input type="text" class="form-control" value="{{ $padre->escolaridad}}"name="escolaridad">
                 </div>
                 <div class="form-group col-md-3">
                   <label class="text-dark">Estado civil</label>
-                  <input type="text" class="form-control" value="{{ old('estado_civil' , $padre->estado_civil) }}"name="estado_civil">
+                  <input type="text" class="form-control" value="{{ $padre->estado_civil}}"name="estado_civil">
                 </div>
                 <div class="form-group col-md-2">
                   <label class="text-dark">Edad</label>
-                  <input type="number" class="form-control" value="{{ old('edad' , $padre->edad) }}"name="edad">
+                  <input type="number" class="form-control" value="{{ $padre->edad}}"name="edad">
                 </div>                
             </div>            
             <a href="{{url('director/padre_familia/'.$padre->id.'/edit')}}" class="btn btn-success" target="_blank">Editar información</a>
@@ -205,7 +205,7 @@
                     @foreach($padre->alumnos as $alumno)
                       <tr>                                                        
                           <td class="text-center">{{$alumno->nia}}</td>
-                          <td class="text-center">{{$alumno->name}}</td>
+                          <td class="text-center">{{$alumno->name}} {{$alumno->apellidoP}} {{$alumno->apellidoM}}</td>
                           <td class="text-center">{{$alumno->pivot->parentezco}}</td>
                           <td class="td-actions">                                                     
                             <a href="{{url('/director/alumno/'.$alumno->nia.'/show')}}" 

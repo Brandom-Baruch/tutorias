@@ -5,3 +5,4 @@
 <a href="{{url('director/alumnos/index')}}" class="dropdown-item">Listado de alumnos</a>
 <a href="{{url('director/puestos/index')}}" class="dropdown-item">Listado de puestos</a>
 <a href="{{url('director/grupos/index')}}" class="dropdown-item">Listado de grupos</a>
+

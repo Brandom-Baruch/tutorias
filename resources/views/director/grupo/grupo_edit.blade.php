@@ -1,7 +1,14 @@
 @extends('layouts.app')
 
 @section('titulo','Editar Grupo')
+
 @section('body-class','profile-page sidebar-collapse')
+
+@section('opciones_director')    
+
+  @include('includes.links_director')
+
+@endsection
 
 @section('content')
 
@@ -9,7 +16,7 @@
 <div class="main main-raised">
     <div class="container">             
         <div class="section">
-            <h2 class="title text-center" style="color:black;">Editar Grupo {{$grupo->name}}</h2>
+            <h2 class="title text-center" style="color:black;">Editar Grupo <b class="text-primary">{{$grupo->name}}</b></h2>
             @if($errors->any())
                 <div class="alert alert-danger">
                     <div class="container-fluid">                     

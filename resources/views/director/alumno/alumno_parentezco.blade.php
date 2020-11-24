@@ -1,6 +1,6 @@
 @extends('layouts.app')
 
-@section('titulo','Asignar parentezco')
+@section('titulo','Asignar parentesco')
 
 @section('body-class','profile-page sidebar-collapse')
 
@@ -34,7 +34,7 @@
                   <label style="color: black;">Selecciona un familiar</label>
                   <select class="form-control"  name="padre_id"  style="color: black;">
                     @foreach($padres as $padre)
-                      <option value="{{$padre->id}}" @if($padre->id == old('padre_id', $padre->id)) selected @endif>
+                      <option value="{{$padre->id}}">
                         {{$padre->name}} {{$padre->apellidoP}} {{$padre->apellidoM}}
                       </option>       
                     @endforeach
@@ -100,7 +100,8 @@
                           <td class="text-center">{{$padre->name}} {{$padre->apellidoP}} {{$padre->apellidoM}} </td>
                           <td class="text-center">{{$padre->pivot->parentezco}}</td>
                           <td class="td-actions text-center">
-                            <form method="post" action="{{url('director/alumno/'.$alumno->nia.'/familiares/'.$padre->id.'/delete')}}">
+                            <form method="post" 
+                                  action="{{url('director/alumno/'.$alumno->nia.'/familiares/'.$padre->id.'/delete')}}">
                               {{csrf_field()}}                                                                
                               <button type="submit" rel="tooltip" title="Quitar familiar" class="btn btn-danger btn-fab btn-fab-mini btn-rect btn-sm">
                                   <i class="fa fa-times"></i>

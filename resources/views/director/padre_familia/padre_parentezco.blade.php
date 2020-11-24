@@ -35,7 +35,7 @@
                   <label style="color: black;">Selecciona un alumno</label>
                   <select class="form-control"  name="alumno_id"  style="color: black;">
                     @foreach($alumnos as $alumno)
-                      <option value="{{$alumno->nia}}" @if($alumno->nia == old('alumno_id', $alumno->nia)) selected @endif>
+                      <option value="{{$alumno->nia}}">
                         {{$alumno->name}} {{$alumno->apellidoP}} {{$alumno->apellidoM}}
                       </option>       
                     @endforeach
@@ -53,7 +53,7 @@
 
             </div>       
             <button type="submit" class="btn btn-success">Agregar parentezco</button>            
-            <a href="{{url('/director/padre_familia/'.$padre->id.'/show')}}" class="btn btn-danger">Regresar</a>
+            <a href="{{url('/director/padres_familia/index')}}" class="btn btn-danger">Regresar</a>
         </form>        
       </div>
       @if($errors->any())
@@ -99,7 +99,7 @@
                     @foreach($padre->alumnos as $alumno)
                       <tr>                                                        
                           <td class="text-center">{{$alumno->nia}}</td>
-                          <td class="text-center">{{$alumno->name}}</td>
+                          <td class="text-center">{{$alumno->name}} {{$alumno->apellidoP}} {{$alumno->apellidoM}}</td>
                           <td class="text-center">{{$alumno->pivot->parentezco}}</td>
                           <td class="td-actions text-center">
                             <form method="post" action="{{url('director/padre_familia/'.$padre->id.'/alumnos/'.$alumno->nia.'/delete')}}">

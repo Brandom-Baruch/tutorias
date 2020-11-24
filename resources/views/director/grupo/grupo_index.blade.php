@@ -7,7 +7,10 @@
 @section('opciones_director')    
 
   @include('includes.links_director')
-
+  <a href="{{url('docente')}}">Panel de control</a>
+  @if(Auth::user()->puestos()->where('puesto','Tutor')->first() && Auth::user()->materias()->where('name','like','Tutorias%')->first())
+  <a href="{{url('docente/tutorias')}}">Tutorias</a>
+  @endif
 @endsection
 
 @section('content')
@@ -28,7 +31,20 @@
       <div class="description text-center">
         <h3 class="title">Listado de Grupos</h3>                                                                                    
       </div>                            
-      <div class="text-center gallery">           
+      <div class="text-center">           
+         @if (session('mensaje')) <!--Si existe un de la variable eliminado, mostrara el contenido del de la variable eliminado-->
+            <div class="alert alert-success text-left">
+                <div class="container-fluid">
+                  <div class="alert-icon">
+                    <i class="material-icons">check</i>
+                  </div>
+                  <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                    <span aria-hidden="true"><i class="material-icons">clear</i></span>
+                  </button>
+                  {{ session('mensaje') }}
+                </div>
+            </div>
+        @endif 
         @if (session('eliminado')) <!--Si existe un de la variable eliminado, mostrara el contenido del de la variable eliminado-->
             <div class="alert alert-danger text-left">
                 <div class="container-fluid">
@@ -52,7 +68,7 @@
     	              <div class="col-md-6 ml-auto mr-auto">
     	                <img src="{{asset('img/grupo.jpg')}}"  class="img-raised rounded-circle img-fluid">
     	              </div>
-    	             <h4 class="card-title"><a href="{{url('director/grupo/'.$grupo->id.'/alumnos/show')}}" target="_blank">
+    	             <h4 class="card-title"><a href="{{url('director/grupo/'.$grupo->id.'/alumnos/show')}}">
                                           Nombre: {{$grupo->name}}
                                           </a>
     	                <br>
@@ -70,7 +86,7 @@
                           <a href="{{url('/director/grupo/'.$grupo->id.'/edit')}}" rel="tooltip" title="Editar Grupo" 
                           class="btn btn-success btn-fab btn-fab-mini btn-rect btn-sm">
                               <i class="fa fa-edit"></i>
-                          </a>
+                          </a>                         
                           <button type="submit" rel="tooltip" title="Eliminar Grupo" 
                           class="btn btn-danger btn-fab btn-fab-mini btn-rect btn-sm">
                               <i class="fa fa-times"></i>

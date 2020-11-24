@@ -30,4 +30,9 @@ class Padre_familia extends Authenticatable
         return $this->belongsToMany(Domicilio::class,'_b__domicilio', 'padre_id')->withTimestamps();
     }
 
+    public function entrevista()
+    {
+        return $this->belongsTo(Entrevista_Fresca_Padre::class,'id','padre_id');
+    }
+
 }

@@ -2,7 +2,7 @@
 <div class="container"> 
   <div class="copyright float-right">
     &copy;
-    2020, hecho con <i class="material-icons">favorite</i> por el proyecto SGTEMS
+    2020, hecho por SGTEMS
   </div>
 </div>
 </footer>
