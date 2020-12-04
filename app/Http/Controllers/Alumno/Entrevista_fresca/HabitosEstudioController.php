@@ -9,7 +9,7 @@ use App\HabitosEstudio;
 class HabitosEstudioController extends Controller
 {
 	public function create()
-	{
+	{		
 		return view('alumno.entrevista_fresca.habitos_estudio');
 	}
 
@@ -17,7 +17,7 @@ class HabitosEstudioController extends Controller
 	{
 		$habitos = new HabitosEstudio;
 
-		$habitos->entrevista_id = auth()->user()->entrevista->id;		
+		$habitos->entrevista_id = auth()->user()->entrevista_fresca->id;		
 		$habitos->respuesta1 = $request->input('respuesta1');           
 		$habitos->respuesta2 = $request->input('respuesta2');
 		$habitos->respuesta3 = $request->input('respuesta3');            

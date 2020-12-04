@@ -8,8 +8,6 @@ use App\Http\Controllers\Controller;
 use App\Docente;
 use App\Alumno;
 use App\Padre_familia;
-use App\Entrevista_Fresca_Alumno;
-use App\Entrevista_Fresca_Padre;
 use App\MarcaX;
 
 class DocenteController extends Controller
@@ -77,34 +75,5 @@ class DocenteController extends Controller
         $mensaje = 'Datos actualizados exitosamente';
         return redirect('docente')->with(compact('mensaje'));
     }
-
-    public function tutorias()
-    {        
-        $docente_materia = auth()->user()->materias()->where('name','like','%Tutorias%')->first(); //Relacion entre docente/materia
-        $materia_grupo = $docente_materia->grupos()->where('materia_id',$docente_materia->id)->first(); //R entre materia/grupo
-        $grupo_alumno = $materia_grupo->alumnos()->where('grupo_id',$materia_grupo->id)->get(); //Grupo/alumno
-        
-        $entrevista_alumno = Entrevista_Fresca_Alumno::where('descripcion','Finalizo la entrevista')->get();            
-        $entrevista_no = Entrevista_Fresca_Alumno::where('descripcion','Inicio la entrevista')->get();
-        
-        $entrevista_padre = Entrevista_Fresca_Padre::where('descripcion','Finalizo la entrevista')->get();
-        $entrevistaPadre_No = Entrevista_Fresca_Padre::where('descripcion','Inicio la entrevista')->get();                
-        
-    	return view('docente.tutorias.docente_tutor')->with(compact('entrevista_alumno','entrevista_no','entrevista_padre','entrevistaPadre_No','materia_grupo','docente_materia'));
-    }
-
-    public function entrevista_alumno($alumno_id)
-    {
-        $alumno = Alumno::find($alumno_id);
-        $entrevista = Entrevista_Fresca_Alumno::where('alumno_id',$alumno->nia)->first();        
-        return view('docente.tutorias.resultados_alumno')->with(compact('entrevista','alumno'));
-    }
-
-    public function entrevista_padre($alumno_id)
-    {                    
-        $entrevista = Entrevista_Fresca_Padre::where('alumno_id',$alumno_id)->first();                
-        //$marca_x = MarcaX::all();   
-        //dd($marca_x);
-        return view('docente.tutorias.resultados_padre')->with(compact('entrevista'));
-    }
+    
 }

@@ -55,6 +55,19 @@
                   {{ session('mensaje') }}
                 </div>
             </div>
+        @endif 
+        @if (session('eliminado'))         
+            <div class="alert alert-danger text-left">
+                <div class="container-fluid">
+                  <div class="alert-icon">
+                    <i class="material-icons">check</i>
+                  </div>
+                  <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                    <span aria-hidden="true"><i class="material-icons">clear</i></span>
+                  </button>
+                  {{ session('eliminado') }}
+                </div>
+            </div>
         @endif                                                  
           <hr style="border-top-color: black;">
           <div class="row">         

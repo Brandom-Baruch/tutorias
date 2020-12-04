@@ -81,9 +81,7 @@ class PuestoController extends Controller
     public function destroy($id)
     {
     	$puesto = Puesto::find($id);
-
     	$puesto->delete();
-
     	$eliminado = 'Se ha eliminado el puesto ' .$puesto->puesto;
     	return back()->with(compact('eliminado'));
     }
@@ -108,11 +106,10 @@ class PuestoController extends Controller
     }
 
     public function eliminarPuesto($puesto_id , $docente_id)
-    {
-        $puesto = Puesto::find($puesto_id);
+    {        
         $docente = Docente::find($docente_id);
-        $puesto->docentes()->detach($docente_id);        
-        $mensaje = 'Se ha eliminado al docente '.$docente->name.' exitosamente';
-        return back()->with(compact('mensaje'));
+        $docente->puestos()->detach($puesto_id);        
+        $eliminado = 'Se ha eliminado el puesto  exitosamente';
+        return back()->with(compact('eliminado'));
     }
 }

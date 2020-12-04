@@ -20,7 +20,7 @@
         <h3 class="title">Asignar domicilio para el alumno <b class="text-primary">{{$alumno->name}}</b></h3>
       </div>        
       <div class="tab-pane  text-center">
-       @if (session('mensaje')) <!--Si existe un mensaje, mostrara el contenido del mensaje-->     
+       @if (session('mensaje'))    
             <div class="alert alert-success text-left">
                 <div class="container-fluid">
                   <div class="alert-icon">
@@ -33,7 +33,7 @@
                 </div>
             </div>
         @endif
-        @if (session('eliminado')) <!--Si existe un de la variable eliminado, mostrara el contenido del de la variable eliminado-->         
+        @if (session('eliminado'))          
             <div class="alert alert-danger text-left">
                 <div class="container-fluid">
                   <div class="alert-icon">

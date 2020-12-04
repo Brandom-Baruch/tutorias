@@ -19,7 +19,7 @@ class DatosFamiliaresController extends Controller
     {
         //dd($request->all());
         $datos_familiares = new DatosFamiliares;
-        $datos_familiares->entrevista_id = auth()->user()->entrevista->id;
+        $datos_familiares->entrevista_id = auth()->user()->entrevista_fresca->id;
         $datos_familiares->respuesta1 = $request->input('respuesta1');
         $datos_familiares->r1 = $request->input('r1');        
         $datos_familiares->respuesta2 = $request->input('respuesta2');

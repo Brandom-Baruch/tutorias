@@ -31,7 +31,7 @@ class EntrevistaAlumnoController extends Controller
       $entrevista->fecha_aplicacion = Carbon::now();
       $entrevista->descripcion = 'Finalizo la entrevista';            
       $entrevista->save();      
-      $mensaje = 'Has finalizado las encuestas. Gracias por compartir esta información eres lo más importante para nosotros.';      
-      return redirect('/alumno')->with(compact('mensaje'));
+      $mensaje = 'Has finalizado la encuesta "Entrevista fresca". Gracias por compartir esta información eres lo más importante para nosotros.';      
+      return redirect('/alumno/encuestas')->with(compact('mensaje'));
     }
 }

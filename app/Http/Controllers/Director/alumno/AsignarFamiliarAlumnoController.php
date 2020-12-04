@@ -21,13 +21,11 @@ class AsignarFamiliarAlumnoController extends Controller
     public function store(Request $request, $nia)
     {
     	$rules = [
-            'parentezco' => 'required',
-            'padre_id' => 'unique:parentezcos',
+            'parentezco' => 'required',            
         ];
 
         $message = [
-            'parentezco.required' => 'Debes de escribir el parentezco que tienen',
-            'padre_id.unique' => 'Este familiar  ya esta registrado',
+            'parentezco.required' => 'Debes de escribir el parentezco que tienen',            
         ];
 
         $this->validate($request, $rules , $message);
@@ -44,10 +42,8 @@ class AsignarFamiliarAlumnoController extends Controller
 
     public function destroy($nia, $padre_id)
     {
-    	$alumno = Alumno::find($nia);
-    	$padre = padre::find($padre_id);
-
-    	$alumno->padres()->detach($padre->id);
+    	$alumno = Alumno::find($nia);    	
+    	$alumno->padres()->detach($padre_id);
     	$eliminado = 'Se ha quitado el familiar exitosamente';
     	return back()->with(compact('eliminado'));
     	

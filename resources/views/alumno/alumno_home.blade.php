@@ -6,6 +6,7 @@
 
 @section('opciones_alumno')
 <a href="{{url('alumno')}}" class="dropdown-item">Panel de control</a>
+<a href="{{url('alumno/encuestas')}}" class="dropdown-item">Panel de entrevistas</a>   
 @endsection
 
 @section('content')
@@ -21,47 +22,36 @@
               <img src="{{url('img/alumno.png')}}" alt="Circle Image" class="img-raised rounded-circle img-fluid">
             </div>       
             <div class="name">
-              <h3 class="title">Hola Alumno <b class="text-primary">{{Auth::user()->name}}</b></h3> 
-              @if(empty(Auth::user()->entrevista()->where('alumno_id',Auth::user()->nia)->first()))              
-              <form method="post" action="{{url('alumno/entrevista')}}">
-                {{csrf_field()}}
-                <button type="submit" class="btn btn-success">Realizar entrevista fresca</button>                  
-              </form>              
-              @endif
-              @if(Auth::user()->entrevista()->where('descripcion','Finalizo la entrevista')->first())
-              <button disabled="true" class="btn btn-success">{{Auth::user()->entrevista->descripcion}}</button>                   
-              @elseif(!empty(Auth::user()->entrevista()->where('alumno_id',Auth::user()->nia)->first()))
-              <a href="{{url('alumno/entrevista')}}" class="btn btn-success">Realizar entrevista fresca</a>
-              @endif             
+              <h3 class="title">Hola Alumno <b class="text-primary">{{Auth::user()->name}}</b></h3>               
             </div>
           </div>
         </div>
       </div>
       @if (session('mensaje')) <!--Si existe un mensaje, mostrara el contenido del mensaje-->             
-      <div class="alert alert-success text-left">
-        <div class="container-fluid">
-          <div class="alert-icon">
-            <i class="material-icons">check</i>
+        <div class="alert alert-success text-left">
+          <div class="container-fluid">
+            <div class="alert-icon">
+              <i class="material-icons">check</i>
+            </div>
+            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+              <span aria-hidden="true"><i class="material-icons">clear</i></span>
+            </button>
+            {{ session('mensaje') }}
           </div>
-          <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-            <span aria-hidden="true"><i class="material-icons">clear</i></span>
-          </button>
-          {{ session('mensaje') }}
         </div>
-      </div>
       @endif
       @if (session('eliminado')) <!--Si existe un mensaje, mostrara el contenido del mensaje-->             
-      <div class="alert alert-danger text-left">
-        <div class="container-fluid">
-          <div class="alert-icon">
-            <i class="material-icons">check</i>
+        <div class="alert alert-danger text-left">
+          <div class="container-fluid">
+            <div class="alert-icon">
+              <i class="material-icons">check</i>
+            </div>
+            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+              <span aria-hidden="true"><i class="material-icons">clear</i></span>
+            </button>
+            {{ session('eliminado') }}
           </div>
-          <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-            <span aria-hidden="true"><i class="material-icons">clear</i></span>
-          </button>
-          {{ session('eliminado') }}
         </div>
-      </div>
       @endif
       <div class="row">             
         <div class="col-md-6 ml-auto mr-auto">
@@ -222,36 +212,36 @@
           <a href="{{url('alumno/'.Auth::user()->nia.'/parentezco')}}" class="btn btn-success">Agregar familiar</a>
           @endif 
         </div>
-      <div class="tab-pane text-center gallery" id="materias">            
-        <h3 class="text-center">
-          Materias del grupo <b class="text-primary">{{Auth::user()->grupo->name}}</b> grado <b class="text-primary">{{Auth::user()->grupo->grado}}</b> y grupo <b class="text-primary">{{Auth::user()->grupo->grupo}}</b>            
-        </h3>
-        <div class="row">
-          <table class="table table-responsive-sm table-responsive-md table-responsive-lg">
-            <thead>
-              <tr>
-                <th class="text-center">#</th>
-                <th class="text-center">Nombre</th>                                                               
-                <th class="text-center">Clave</th>
-                <th class="text-center">Descripción</th>                                                                
-              </tr>
-            </thead>                                
-            <tbody>
-              @foreach(Auth::user()->grupo->materias as $numero => $materia)
-              <tr>
-                <td class="">{{($numero+1)}}</td>                                                        
-                <td class="">{{$materia->name}}</td>
-                <td class="">{{$materia->clave}}</td>
-                <td class="text-left">{{$materia->descripcion}}</td>                     
-              </tr>               
-              @endforeach
-            </tbody>                                
-          </table>                
-        </div>                      
-      </div>
-    </div>                            
+        <div class="tab-pane text-center gallery" id="materias">            
+          <h3 class="text-center">
+            Materias del grupo <b class="text-primary">{{Auth::user()->grupo->name}}</b> grado <b class="text-primary">{{Auth::user()->grupo->grado}}</b> y grupo <b class="text-primary">{{Auth::user()->grupo->grupo}}</b>            
+          </h3>
+          <div class="row">
+            <table class="table table-responsive-sm table-responsive-md table-responsive-lg">
+              <thead>
+                <tr>
+                  <th class="text-center">#</th>
+                  <th class="text-center">Nombre</th>                                                               
+                  <th class="text-center">Clave</th>
+                  <th class="text-center">Descripción</th>                                                                
+                </tr>
+              </thead>                                
+              <tbody>
+                @foreach(Auth::user()->grupo->materias as $numero => $materia)
+                <tr>
+                  <td class="">{{($numero+1)}}</td>                                                        
+                  <td class="">{{$materia->name}}</td>
+                  <td class="">{{$materia->clave}}</td>
+                  <td class="text-left">{{$materia->descripcion}}</td>                     
+                </tr>               
+                @endforeach
+              </tbody>                                
+            </table>                
+          </div>                      
+        </div>
+      </div>                            
+    </div>
   </div>
-</div>
 </div>
 @include('includes.footer')
 @endsection

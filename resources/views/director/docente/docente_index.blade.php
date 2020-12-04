@@ -32,20 +32,20 @@
         <h3 class="title">Listado de Docentes</h3>
       </div>        
       <div class="tab-pane text-center">
-       @if (session('mensaje_docente')) <!--Si existe un mensaje, mostrara el contenido del mensaje-->             
+       @if (session('mensaje'))
        <div class="alert alert-success text-left">
-        <div class="container-fluid">
-          <div class="alert-icon">
-            <i class="material-icons">check</i>
+          <div class="container-fluid">
+            <div class="alert-icon">
+              <i class="material-icons">check</i>
+            </div>
+            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+              <span aria-hidden="true"><i class="material-icons">clear</i></span>
+            </button>
+            {{ session('mensaje') }}
           </div>
-          <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-            <span aria-hidden="true"><i class="material-icons">clear</i></span>
-          </button>
-          {{ session('mensaje_docente') }}
         </div>
-      </div>
       @endif
-      @if (session('eliminado_docente')) <!--Si existe un de la variable eliminado, mostrara el contenido del de la variable eliminado-->           
+      @if (session('eliminado')) 
       <div class="alert alert-danger text-left">
         <div class="container-fluid">
           <div class="alert-icon">
@@ -54,7 +54,7 @@
           <button type="button" class="close" data-dismiss="alert" aria-label="Close">
             <span aria-hidden="true"><i class="material-icons">clear</i></span>
           </button>
-          {{ session('eliminado_docente') }}
+          {{ session('eliminado') }}
         </div>
       </div>
       @endif  

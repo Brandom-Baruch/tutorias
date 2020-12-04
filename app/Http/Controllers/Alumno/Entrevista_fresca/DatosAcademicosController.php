@@ -27,7 +27,7 @@ class DatosAcademicosController extends Controller
     	$this->validate($request,$rules,$message);
         //dd($request->all());
         $datos_academicos = new DatosAcademicos;
-        $datos_academicos->entrevista_id = auth()->user()->entrevista->id;
+        $datos_academicos->entrevista_id = auth()->user()->entrevista_fresca->id;
         $datos_academicos->respuesta1 = $request->input('respuesta1');        
         $datos_academicos->respuesta2 = $request->input('respuesta2');
         $datos_academicos->r2 = $request->input('r2');

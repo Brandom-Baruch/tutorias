@@ -20,7 +20,7 @@ class CreateDocentesTable extends Migration
             $table->string('apellidoM');
             $table->tinyInteger('edad');
             $table->string('email')->unique();
-            $table->string('password', 255);            
+            $table->string('password');            
             $table->string('telefono_fijo');
             $table->string('telefono_cel');            
             $table->rememberToken();

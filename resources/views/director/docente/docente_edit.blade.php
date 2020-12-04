@@ -131,7 +131,8 @@
                             <label>Contraseña</label>
                             <input type="password" class="form-control"  
                                    placeholder="Contraseña"
-                                   name="password" value="{{old('password')}}">
+                                   name="password" value="secret">
+                            <small class="text-danger">La contraseña será secret</small>
                           </div>
                           @if ($errors->has('password'))
                               <span class="help-block text-center text-danger">
@@ -145,13 +146,13 @@
                             <label>Confirmar contraseña</label>
                             <input type="password" class="form-control" 
                                    placeholder="Contraseña" name="password_confirmation"
-                                   value="{{old('password_confirmation')}}">                              
+                                   value="secret">                              
                           </div>                          
                     </div>
 
                 </div>                                                                                        
                  
-                <button class="btn btn-primary">Registrar docente</button>
+                <button class="btn btn-success">Registrar docente</button>
                 <a href="{{url('/director/docentes/index')}}" class="btn btn-danger">Cancelar</a> 
 
              </form>                  

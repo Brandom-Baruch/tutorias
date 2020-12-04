@@ -1,10 +1,9 @@
 
 <?php
-
+use Illuminate\Http\Request;
 Route::get('/', function () {	
 	return view('welcome');
 });
-
 Route::post('/logout', 'Auth\LogoutController@logout')->name('all.logout'); //Cerrar sesión para alumno, docente y padreF
 
 /////////LOGINS
@@ -26,7 +25,10 @@ Route::middleware(['auth:alumno'])->prefix('/alumno')->group(function(){
 	Route::get('/{nia}/domicilio', 'Domicilio\DomicilioController@alumno_create');//Mostrar la vista
 	Route::post('/{nia}/domicilio', 'Domicilio\DomicilioController@alumno_store');//Agregar el domicilio
 	Route::post('/{nia}/domicilio/{domicilio_id}/delete', 'Domicilio\DomicilioController@alumno_destroy'); //eliminar
-	//Entrevistas
+	
+	//Index de todas las encuestas del alumno
+	Route::get('encuestas','Alumno\EncuestasController@index');
+	//Entrevistas fresca
 	Route::get('/entrevista','Alumno\Entrevista_fresca\EntrevistaAlumnoController@index');
 	Route::post('/entrevista','Alumno\Entrevista_fresca\EntrevistaAlumnoController@store');
 	Route::get('/entrevista/datos/familiares','Alumno\Entrevista_fresca\DatosFamiliaresController@create');
@@ -39,8 +41,49 @@ Route::middleware(['auth:alumno'])->prefix('/alumno')->group(function(){
 	Route::post('/entrevista/otras/actividades','Alumno\Entrevista_fresca\OtrasActividadesController@store');
 	Route::get('/entrevista/datos/adicionales','Alumno\Entrevista_fresca\DatosAdicionalesController@create');
 	Route::post('/entrevista/datos/adicionales','Alumno\Entrevista_fresca\DatosAdicionalesController@store');
-	//FINALIZAR ENTREVISTA
 	Route::post('/finalizar/entrevista','Alumno\Entrevista_fresca\EntrevistaAlumnoController@update');
+	//FINALIZAR ENTREVISTA FRESCA
+
+	//INICIO CUESTIONARIO ANEXOS
+	Route::get('/cuestionario','Alumno\Cuestionario_anexos\CuestionarioAlumnoController@index');
+	Route::post('/cuestionario','Alumno\Cuestionario_anexos\CuestionarioAlumnoController@store');
+	Route::post('/finalizar/cuestionario','Alumno\Cuestionario_anexos\CuestionarioAlumnoController@update');
+	Route::get('/cuestionario/atribuciones','Alumno\Cuestionario_anexos\AtribucionesController@create');
+	Route::post('/cuestionario/atribuciones','Alumno\Cuestionario_anexos\AtribucionesController@store');
+	Route::get('/cuestionario/nivel_empatia','Alumno\Cuestionario_anexos\NivelesEmpatiaController@create');
+	Route::post('/cuestionario/nivel_empatia','Alumno\Cuestionario_anexos\NivelesEmpatiaController@store');
+	Route::get('/cuestionario/tipo_mentalidad','Alumno\Cuestionario_anexos\TiposMentalidadController@create');
+	Route::post('/cuestionario/tipo_mentalidad','Alumno\Cuestionario_anexos\TiposMentalidadController@store');
+	//FINALIZA CUESTIONARIO ANEXOS
+
+	//INICIO TEST
+	Route::post('/test/create','Alumno\Test\TestController@store'); //Cuando valla a la vista creamos la inserción
+	Route::get('/test','Alumno\Test\TestController@index'); //Muestra las secciones del test
+	Route::get('/test/conociendo_estilos_aprendizaje','Alumno\Test\ConociendoEstiloAprendizajeController@create');
+	Route::post('/test/conociendo_estilos_aprendizaje','Alumno\Test\ConociendoEstiloAprendizajeController@store');
+	Route::get('/test/encontrar_estilo_aprendizaje','Alumno\Test\EncontrarEstiloAprendizajeController@create');
+	Route::post('/test/encontrar_estilo_aprendizaje','Alumno\Test\EncontrarEstiloAprendizajeController@store');	
+	//HABITOS DE ESTUDIO
+	Route::post('/test/habitos_estudio', 'Alumno\Test\Habito_Estudio\HabitoEstudioController@store');
+	Route::get('/test/habitos_estudio', 'Alumno\Test\Habito_Estudio\HabitoEstudioController@index');
+	Route::get('/test/habitos_estudio/organizacion_tiempo', 'Alumno\Test\Habito_Estudio\OrganizarTiempoController@create');
+	Route::post('/test/habitos_estudio/organizacion_tiempo', 'Alumno\Test\Habito_Estudio\OrganizarTiempoController@store');
+	Route::get('/test/habitos_estudio/planificacion', 'Alumno\Test\Habito_Estudio\PlanificacionController@create');
+	Route::post('/test/habitos_estudio/planificacion', 'Alumno\Test\Habito_Estudio\PlanificacionController@store');
+	Route::get('/test/habitos_estudio/estrategia_aprendizaje', 'Alumno\Test\Habito_Estudio\EstrategiaAprendizajeController@create');
+	Route::post('/test/habitos_estudio/estrategia_aprendizaje', 'Alumno\Test\Habito_Estudio\EstrategiaAprendizajeController@store');
+	Route::post('/test/finalizar/habitos_estudio','Alumno\Test\Habito_Estudio\HabitoEstudioController@update');
+	//FIN DE HABITOS DE ESTUDIO
+	Route::post('/finalizar/test','Alumno\Test\TestController@update');
+	//FIN TEST
+	//INCIAR TEST ATENCION INDIVIDUAL 
+	Route::get('/test/atencion_individual','Alumno\Test\AtencionIndividualController@create');
+	Route::post('/test/atencion_individual','Alumno\Test\AtencionIndividualController@store');
+	//FIN TEST
+	//INICIO CUESTIONARIO
+	Route::get('/cuestionario/perfil_academico','Alumno\Cuestionario_Perfil\PerfilAcademicoAlumnoController@create');
+	Route::post('/cuestionario/perfil_academico','Alumno\Cuestionario_Perfil\PerfilAcademicoAlumnoController@store');
+	//FIN CUESTIONARIO
 });
 
 Route::middleware(['auth:padre'])->prefix('/padre_familia')->group(function (){
@@ -68,13 +111,55 @@ Route::middleware(['auth:docente'])->prefix('/docente')->group(function () {
 	Route::get('/' , 'Docente\DocenteController@index'); // Muestra el panel de control para los docentes en general
 	Route::get('/{id}/edit' , 'Docente\DocenteController@edit');
 	Route::post('/{id}/edit' , 'Docente\DocenteController@update');
-	Route::get('/tutorias' , 'Docente\DocenteController@tutorias');	
 	Route::get('/{id}/domicilio','Domicilio\DomicilioController@docente_create');//mostrar
 	Route::post('/{id}/domicilio','Domicilio\DomicilioController@docente_store'); // agregar
 	Route::post('/{docente_id}/domicilio/{domicilio_id}/delete','Domicilio\DomicilioController@docente_destroy');
 	
-	Route::get('/entrevista/alumno/{alumno_id}/view','Docente\DocenteController@entrevista_alumno');
-	Route::get('/entrevista/padre_familia/alumno/{alumno_id}/view','Docente\DocenteController@entrevista_padre');
+	//DOCENTE TUTOR
+	Route::get('/tutorias' , 'Docente\Tutorias\TutoriasController@index');	
+	Route::get('/tutorias/alumnos_bajo_rendimiento','Docente\Tutorias\AlumnoBajoRendimientoController@index');
+	Route::get('/tutorias/alumnos_bajo_rendimiento/create','Docente\Tutorias\AlumnoBajoRendimientoController@create');	
+	Route::post('/tutorias/alumnos_bajo_rendimiento','Docente\Tutorias\AlumnoBajoRendimientoController@store');
+	Route::post('/tutorias/alumnos_bajo_rendimiento/{rendimiento_id}/delete','Docente\Tutorias\AlumnoBajoRendimientoController@destroy');
+	Route::get('/tutorias/{rendimiento_id}/alumnos_reprobados/create','Docente\Tutorias\AlumnosReprobadosController@create');
+	Route::post('/tutorias/{rendimiento_id}/alumnos_reprobados','Docente\Tutorias\AlumnosReprobadosController@store');
+	Route::post('/tutorias/{alumno_reprobado}/alumnos_reprobados/delete','Docente\Tutorias\AlumnosReprobadosController@destroy');
+	Route::get('tutorias/reporte_tutorias','Docente\Tutorias\ReporteTutoriasController@index');
+	Route::get('tutorias/reporte_tutorias/create','Docente\Tutorias\ReporteTutoriasController@create');
+	Route::post('tutorias/reporte_tutorias','Docente\Tutorias\ReporteTutoriasController@store');
+	Route::get('tutorias/{reporte_id}/reporte_tutorias/edit','Docente\Tutorias\ReporteTutoriasController@edit');
+	Route::post('tutorias/{reporte_id}/reporte_tutorias','Docente\Tutorias\ReporteTutoriasController@update');
+	Route::post('tutorias/{reporte_id}/reporte_tutorias/delete','Docente\Tutorias\ReporteTutoriasController@destroy');
+	Route::get('tutorias/asistencia','Docente\Tutorias\ControlAsistenciaController@index');
+	Route::get('tutorias/asistencia/create','Docente\Tutorias\ControlAsistenciaController@create');
+	Route::post('tutorias/asistencia','Docente\Tutorias\ControlAsistenciaController@store');
+	Route::get('tutorias/{asistencia_id}/asistencia/edit','Docente\Tutorias\ControlAsistenciaController@edit');
+	Route::post('tutorias/{asistencia_id}/asistencia','Docente\Tutorias\ControlAsistenciaController@update');
+	Route::post('tutorias/{asistencia_id}/asistencia/delete','Docente\Tutorias\ControlAsistenciaController@destroy');
+
+	/*Route::get('/tutorias/control_asistencias', function(Request $request){
+		$search = $request->input('searches');
+		$alumno = App\Alumno::where('name','like',"%$search%")->first();
+		return view('tutorias.control_asistencias')->with(compact('alumno'));
+	});
+	Route::get('/tutorias/casos_especiales', function(Request $request){
+		$search = $request->input('searches');
+		$alumno = App\Alumno::where('name','like',"%$search%")->first();
+		return view('tutorias.casos_especiales')->with(compact('alumno'));
+	});
+	Route::get('/tutorias/seguimiento_alumno', function(Request $request){
+		$search = $request->input('searches');
+		$alumno = App\Alumno::where('name','like',"%$search%")->first();
+		return view('tutorias.seguimiento_alumno')->with(compact('alumno'));
+	});
+	Route::get('/tutorias/listado_alumnos/json', function(){		
+		$alumnos = App\Alumno::pluck('name');
+		return $alumnos;
+	});*/
+	
+	
+	Route::get('/entrevista/alumno/{alumno_id}/view','Docente\Tutorias\TutoriasController@entrevista_alumno');
+	Route::get('/entrevista/padre_familia/alumno/{alumno_id}/view','Docente\Tutorias\TutoriasController@entrevista_padre');
 	Route::get('/entrevista_fresca_padre_familia/{alumno_id}','Docente\tutorias_Pdf\PdfController@pdf_padre');
 	Route::get('/entrevista_fresca_alumno/{alumno_id}','Docente\tutorias_Pdf\PdfController@pdf_alumno');	
 });
@@ -156,31 +241,31 @@ Route::middleware(['auth:docente'])->prefix('director/')->namespace('Director')-
 	Route::post('/domicilio/{id}/edit', 'domicilio\DomicilioController@update');
 	Route::post('/domicilio/{id}/delete', 'domicilio\DomicilioController@destroy');
 	//Asignar domicilio para Docente, Alumno y Padre
-	Route::get('padre_familia/{id}/domicilio', 'domicilio\AsignarDomicilioController@padre_create');
-	Route::post('padre_familia/{id}/domicilio', 'domicilio\AsignarDomicilioController@padre_store');
-	Route::post('padre_familia/{padre_id}/domicilio/{domicilio_id}/delete', 'domicilio\AsignarDomicilioController@padre_destroy');
+	Route::get('/padre_familia/{id}/domicilio', 'domicilio\AsignarDomicilioController@padre_create');
+	Route::post('/padre_familia/{id}/domicilio', 'domicilio\AsignarDomicilioController@padre_store');
+	Route::post('/padre_familia/{padre_id}/domicilio/{domicilio_id}/delete', 'domicilio\AsignarDomicilioController@padre_destroy');
 	//Alumno
-	Route::get('alumno/{nia}/domicilio', 'domicilio\AsignarDomicilioController@alumno_create');//Mostrar la vista
-	Route::post('alumno/{nia}/domicilio', 'domicilio\AsignarDomicilioController@alumno_store');//Agregar el domicilio
-	Route::post('alumno/{nia}/domicilio/{domicilio_id}/delete', 'domicilio\AsignarDomicilioController@alumno_destroy');
+	Route::get('/alumno/{nia}/domicilio', 'domicilio\AsignarDomicilioController@alumno_create');//Mostrar la vista
+	Route::post('/alumno/{nia}/domicilio', 'domicilio\AsignarDomicilioController@alumno_store');//Agregar el domicilio
+	Route::post('/alumno/{nia}/domicilio/{domicilio_id}/delete', 'domicilio\AsignarDomicilioController@alumno_destroy');
 	//Docente
-	Route::get('docente/{id}/domicilio','domicilio\AsignarDomicilioController@docente_create');
-	Route::post('docente/{id}/domicilio','domicilio\AsignarDomicilioController@docente_store');
-	Route::post('docente/{docente_id}/domicilio/{domicilio_id}/delete','domicilio\AsignarDomicilioController@docente_destroy');
+	Route::get('/docente/{id}/domicilio','domicilio\AsignarDomicilioController@docente_create');
+	Route::post('/docente/{id}/domicilio','domicilio\AsignarDomicilioController@docente_store');
+	Route::post('/docente/{docente_id}/domicilio/{domicilio_id}/delete','domicilio\AsignarDomicilioController@docente_destroy');
 	//Grupo
-	Route::get('grupos/index','grupo\GrupoController@index');
-	Route::get('grupos/create','grupo\GrupoController@create');
-	Route::post('grupos/create','grupo\GrupoController@store');
-	Route::get('grupo/{id}/edit','grupo\GrupoController@edit');
-	Route::post('grupo/{id}/edit','grupo\GrupoController@update');
-	Route::post('grupo/{id}/delete', 'grupo\GrupoController@destroy');
+	Route::get('/grupos/index','grupo\GrupoController@index');
+	Route::get('/grupos/create','grupo\GrupoController@create');
+	Route::post('/grupos/create','grupo\GrupoController@store');
+	Route::get('/grupo/{id}/edit','grupo\GrupoController@edit');
+	Route::post('/grupo/{id}/edit','grupo\GrupoController@update');
+	Route::post('/grupo/{id}/delete', 'grupo\GrupoController@destroy');
 	//Mostrar el grupo seleccionado
-	Route::get('grupo/{grupo}/alumnos/show', 'grupo\GrupoController@alumnos_show');
-	Route::post('grupo/{grupo_id}/alumno/{alumno_id}/delete', 'grupo\GrupoController@alumno_destroy');
-	Route::get('grupo/{grupo}/materias/show', 'grupo\GrupoMateriasController@show');	
-	Route::get('grupo/{id}/materias', 'grupo\GrupoMateriasController@create');
-	Route::post('grupo/{id}/materias', 'grupo\GrupoMateriasController@store');	
-	Route::post('grupo/{grupo_id}/materia/{materia_id}/delete', 'grupo\GrupoMateriasController@materia_destroy');
+	Route::get('/grupo/{grupo}/alumnos/show', 'grupo\GrupoController@alumnos_show');
+	Route::post('/grupo/{grupo_id}/alumno/{alumno_id}/delete', 'grupo\GrupoController@alumno_destroy');
+	Route::get('/grupo/{grupo}/materias/show', 'grupo\GrupoMateriasController@show');	
+	Route::get('/grupo/{id}/materias', 'grupo\GrupoMateriasController@create');
+	Route::post('/grupo/{id}/materias', 'grupo\GrupoMateriasController@store');	
+	Route::post('/grupo/{grupo_id}/materia/{materia_id}/delete', 'grupo\GrupoMateriasController@materia_destroy');
 
 });
 

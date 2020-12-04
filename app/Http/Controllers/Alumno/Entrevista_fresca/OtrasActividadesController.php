@@ -33,7 +33,7 @@ class OtrasActividadesController extends Controller
     	$this->validate($request,$rules,$message);
 
     	$actividades = new OtrasActividades;
-    	$actividades->entrevista_id = auth()->user()->entrevista->id;
+    	$actividades->entrevista_id = auth()->user()->entrevista_fresca->id;
     	$actividades->respuesta1 = $request->input('respuesta1');        
         $actividades->respuesta2 = $request->input('respuesta2');
         $actividades->respuesta3 = $request->input('respuesta3');

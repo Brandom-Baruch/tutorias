@@ -200,10 +200,16 @@
                     <td class="text-center">{{$padre->name}} {{$padre->apellidoP}} {{$padre->apellidoM}}</td> 
                     <td class="text-center">{{$padre->pivot->parentezco}}</td>
                     <td class="td-actions">                                                     
-                      <a href="{{url('/director/padre_familia/'.$padre->id.'/show')}}" 
-                        rel="tooltip" title="Ver Familiar" class="btn btn-info btn-fab btn-fab-mini btn-rect btn-sm" target="_blank">
-                        <i class="material-icons">person</i>
-                      </a>                                                      
+                      <form method="post" action="{{url('director/alumno/'.$alumno->nia.'/familiares/'.$padre->id.'/delete')}}">
+                        {{csrf_field()}}
+                        <a href="{{url('/director/padre_familia/'.$padre->id.'/show')}}" 
+                          rel="tooltip" title="Ver Familiar" class="btn btn-info btn-fab btn-fab-mini btn-rect btn-sm" target="_blank">
+                          <i class="material-icons">person</i>
+                        </a>                                                      
+                        <button rel="tooltip" title="Quitar Familiar" class="btn btn-danger btn-fab btn-fab-mini btn-rect btn-sm">
+                          <i class="material-icons">clear</i>
+                        </button>
+                      </form>
                     </td>
                   </tr>               
                   @endforeach
@@ -243,6 +249,7 @@
             </div>               
             @endif            
             <a href="{{url('director/alumnos/index')}}" class="btn btn-danger">Regresar</a>
+            <a href="{{url('director/grupo/'.$grupo->id.'/materias/show')}}" class="btn btn-success">Ver Grupo</a>
           </div>         
         </div>              
       </div>

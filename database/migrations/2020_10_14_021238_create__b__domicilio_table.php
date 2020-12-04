@@ -17,13 +17,13 @@ class CreateBDomicilioTable extends Migration
             $table->increments('id');
             //FK Alumnos
             $table->integer('alumno_id')->unsigned()->nullable();
-            $table->foreign('alumno_id')->references('id')->on('alumnos');
+            $table->foreign('alumno_id')->references('nia')->on('alumnos');
             //FK Docentes
             $table->integer('docente_id')->unsigned()->nullable();
-            $table->foreign('docente_id')->references('id')->on('alumnos');
+            $table->foreign('docente_id')->references('id')->on('docentes');
             //FK Padres de familia
             $table->integer('padre_id')->unsigned()->nullable();
-            $table->foreign('padre_id')->references('id')->on('alumnos');
+            $table->foreign('padre_id')->references('id')->on('padre_familias');
             //FK Domilicio
             $table->integer('domicilio_id')->unsigned();
             $table->foreign('domicilio_id')->references('id')->on('domicilios');

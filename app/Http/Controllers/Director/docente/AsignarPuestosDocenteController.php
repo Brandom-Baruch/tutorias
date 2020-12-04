@@ -30,10 +30,10 @@ class AsignarPuestosDocenteController extends Controller
     }
 
     public function destroy ($docente_id , $puesto_id)    
-    {
+    {        
         $docente = Docente::find($docente_id);
         $docente->puestos()->detach($puesto_id);
-        $mensaje = 'Se ha eliminado el puesto exitosamente';
-        return back()->with(compact('mensaje'));
+        $eliminado = 'Se ha eliminado el puesto  exitosamente';
+        return back()->with(compact('eliminado'));
     }
 }

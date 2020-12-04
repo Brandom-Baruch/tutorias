@@ -64,4 +64,18 @@ class Docente extends Authenticatable
         return $this->belongsToMany(Domicilio::class,'_b__domicilio','docente_id')->withTimestamps();
     }
 
+    public function alumnos_bajo_rendimiento()
+    {
+        return $this->hasMany(Alumno_Bajo_Rendimiento::class,'tutor_id');
+    }
+
+    public function reporte_tutorias()
+    {
+        return $this->hasMany(Reporte_Tutorias::class,'tutor_id');
+    }
+
+    public function asistencia_tutores()
+    {
+        return $this->hasMany(Control_Asistencia::class,'tutor_id');
+    }
 }   

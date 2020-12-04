@@ -35,10 +35,7 @@
             </span>
             @endif
           </div>
-
-
           <div class="col-sm-4">
-
             <div class="form-group {{ $errors->has('name') ? ' has-error' : '' }}">
               <label for="name">Nombre(s)</label>
               <input type="text" class="form-control" id="name" placeholder="Ejemplo: Brandom Baruch" value="{{ old('name') }}" name="name">

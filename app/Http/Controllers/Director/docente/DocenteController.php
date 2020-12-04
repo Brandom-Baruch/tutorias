@@ -75,8 +75,8 @@ class DocenteController extends Controller
         $docente->remember_token = str_random(100);
         $docente->save();
 
-        $mensaje_docente = 'Se ha agregado un nuevo docente, llamado: ' . $docente->name;
-        return redirect('/director/docentes/index')->with(compact('mensaje_docente'));
+        $mensaje = 'Se ha agregado un nuevo docente, llamado: ' . $docente->name;
+        return redirect('/director/docentes/index')->with(compact('mensaje'));
     	//$table->rememberToken();
     }
 
@@ -131,16 +131,16 @@ class DocenteController extends Controller
         //$docente->password = bcrypt($request->input('password'));
         $docente->remember_token = str_random(100);
         $docente->save(); //Actualiza los datos
-        $mensaje_docente = 'Datos actualizados del docente ' . $docente->name;
-        return redirect('/director/docentes/index')->with(compact('mensaje_docente'));
+        $mensaje = 'Datos actualizados del docente ' . $docente->name;
+        return redirect('/director/docentes/index')->with(compact('mensaje'));
     }
 
     public function destroy ($id)
     {
         $docentes = Docente::find($id);
         $docentes->delete(); //Eliminamos al docente
-        $eliminado_docente = 'Se ha eliminado el docente '.$docentes->name;
-        return back()->with(compact('eliminado_docente'));
+        $eliminado = 'Se ha eliminado el docente '.$docentes->name;
+        return back()->with(compact('eliminado'));
 
     }
 
@@ -148,8 +148,7 @@ class DocenteController extends Controller
     {
 
         $request->user()->autorizarPuestos('Director');
-        $docentes= Docente::find($id);
-       
+        $docentes= Docente::find($id);       
         return view('director.docente.docente_show')->with(compact('docentes'));
     }
     

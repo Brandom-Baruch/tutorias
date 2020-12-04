@@ -16,7 +16,7 @@ class DatosAdicionalesController extends Controller
     public function store(Request $request)
     {
     		$datos = new DatosAdicionales;
-    		$datos->entrevista_id = auth()->user()->entrevista->id;            
+    		$datos->entrevista_id = auth()->user()->entrevista_fresca->id;            
             $datos->respuesta1 = $request->input('respuesta1');
             $datos->r1 = $request->input('r1');
             $datos->respuesta2 = $request->input('respuesta2');

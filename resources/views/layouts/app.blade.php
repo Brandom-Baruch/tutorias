@@ -34,58 +34,52 @@
       <div class="collapse navbar-collapse">
         <ul class="navbar-nav ml-auto">              
           @yield('contenido')   
-
           @guest
-          <li class="dropdown nav-item">
-            <a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false" aria-haspopup="true" v-pre>
-              Iniciar Sesión
-            </a>
-
-            <ul class="dropdown-menu">
-              <li class="nav-item">
-                @yield('opciones_director')
-                <a class="dropdown-item" href="/docente/login">Inciar Docente</a>
-                <a class="dropdown-item" href="/alumno/login">Inciar Alumno</a>
-                <a class="dropdown-item" href="/padre/login">Inciar Padre de Familia</a>                                  
-              </li>
-            </ul>
-          </li>
-          <!--<li class="nav-item"><a class="nav-link" href="/docente/register">Registrar</a></li>-->
-          @else
-          <li class="dropdown nav-item">
             <li class="dropdown nav-item">
               <a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false" aria-haspopup="true" v-pre>
-                {{ Auth::user()->name}} <span class="caret"></span>
+                Iniciar Sesión
               </a>
 
               <ul class="dropdown-menu">
-                <li class="nav-item">                                
-                  @yield('opciones_director')
-                  @yield('opciones_alumno')
-                  @yield('opciones_padre')
-                  <a class="dropdown-item" href="{{ route('all.logout') }}"
-                  onclick="event.preventDefault();
-                  document.getElementById('logout-form').submit();">
-                  Cerrar Sesión
+                <li class="nav-item">                
+                  <a class="dropdown-item" href="/docente/login">Inciar Docente</a>
+                  <a class="dropdown-item" href="/alumno/login">Inciar Alumno</a>
+                  <a class="dropdown-item" href="/padre/login">Inciar Padre de Familia</a>                                  
+                </li>
+              </ul>
+            </li>
+            <!--<li class="nav-item"><a class="nav-link" href="/docente/register">Registrar</a></li>-->
+            @else
+            <li class="dropdown nav-item">
+              <li class="dropdown nav-item">
+                <a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false" aria-haspopup="true" v-pre>
+                  {{ Auth::user()->name}} <span class="caret"></span>
                 </a>
 
-                <form id="logout-form" action="{{ route('all.logout') }}" method="POST" style="display: none;">
-                  {{ csrf_field() }}
-                </form>
+                <ul class="dropdown-menu">
+                  <li class="nav-item">                                
+                    @yield('opciones_director')
+                    @yield('opciones_alumno')
+                    @yield('opciones_padre')
+                    <a class="dropdown-item" href="{{ route('all.logout') }}"
+                    onclick="event.preventDefault();
+                    document.getElementById('logout-form').submit();">
+                    Cerrar Sesión
+                    </a>
+
+                    <form id="logout-form" action="{{ route('all.logout') }}" method="POST" style="display: none;">
+                      {{ csrf_field() }}
+                    </form>
+                  </li>
+                </ul>
               </li>
-            </ul>
-          </li>
-        </li>
-        @endguest
-      </ul>
+            </li>
+          @endguest
+        </ul>
+      </div>
     </div>
-  </div>
-</nav>
-
-<div>
-  @yield('content') 
-</div> 
-
+  </nav>
+  @yield('content')   
 <!--   Core JS Files   -->
 <script src="{{asset('js/core/jquery-3.5.1.min.js')}}" type="text/javascript"></script>
 <script src="{{asset('js/core/popper.min.js')}}" type="text/javascript"></script>
@@ -99,6 +93,8 @@
 <!-- Control Center for Material Kit: parallax effects, scripts for the example pages etc -->
 <script src="{{asset('js/material-kit.js?v=2.0.7')}}" type="text/javascript"></script>
 <!--<script src="{{ asset('js/app.js') }}"></script>-->
+ @yield('scripts')
+
 </body>
 
 </html>

@@ -5,6 +5,7 @@ namespace App;
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Support\Facades\DB;
+use App\Test;
 
 class Alumno extends Authenticatable
 {
@@ -46,8 +47,26 @@ class Alumno extends Authenticatable
         return $this->belongsToMany(Domicilio::class,'_b__domicilio','alumno_id')->withTimestamps();
     }
 
-    public function entrevista()
+    public function entrevista_fresca()
     {
         return $this->belongsTo(Entrevista_Fresca_Alumno::class,'nia','alumno_id');
+    }
+      
+    public function cuestionario_anexo()
+    {
+        return $this->belongsTo(Cuestionario_Anexos::class,'nia','alumno_id');
     }       
+    public function test()
+    {
+        return $this->belongsTo(Test::class,'nia','alumno_id');
+    }
+
+    public function atencion_individual()
+    {
+        return $this->belongsTo(Atencion_Individualizada::class ,'nia','alumno_id');
+    }
+    public function perfil_academico()
+    {
+        return $this->belongsTo(Perfil_Academico_Alumno::class,'nia','alumno_id');
+    }
 }

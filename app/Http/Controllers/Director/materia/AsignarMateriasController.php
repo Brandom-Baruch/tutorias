@@ -36,7 +36,7 @@ class AsignarMateriasController extends Controller
     {        
         $materia = Materia::find($materia_id);
         $materia->docentes()->detach($docente_id);        
-        $mensaje = 'Se ha eliminado el docente exitosamente';
+        $mensaje = 'Se ha eliminado la materia exitosamente';
         return back()->with(compact('mensaje'));
     }
 }

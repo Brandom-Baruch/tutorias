@@ -8,7 +8,7 @@ use App\Padre_familia as padre;
 use App\Domicilio;
 use App\Docente;
 use App\B_Domicilio;
-use App\Alumno\Alumno;
+use App\Alumno;
 
 class AsignarDomicilioController extends Controller
 {
@@ -63,8 +63,8 @@ class AsignarDomicilioController extends Controller
     {
         $alumno = Alumno::find($alumno_id);
         $alumno->domicilios()->detach($domicilio_id);
-        $eliminado = 'Se ha eliminado el domicilio actual';
-        return back()->with(compact('eliminado'));
+        $eliminado = 'Se ha eliminado el domicilio actual, escoge un domicilio nuevo';
+        return redirect('/director/alumno/'.$alumno->nia.'/domicilio')->with(compact('eliminado'));
     }
 
 

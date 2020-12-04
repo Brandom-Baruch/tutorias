@@ -4,7 +4,7 @@ namespace App\Http\Controllers\Parentezco;
 
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
-use App\Alumno\Alumno;
+use App\Alumno;
 use App\Padre_familia as padre;
 use App\Parentezco;
 
