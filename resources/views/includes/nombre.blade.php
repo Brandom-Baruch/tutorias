@@ -1,0 +1,1 @@
+nombre.blade.php
